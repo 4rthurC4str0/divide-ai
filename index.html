@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Iphome</title>
+    <link rel="stylesheet" href="./css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- <div class="login-page">
+        <div class="login-card">
+            <h2>Cadastre-se</h2>
+            <p>Hamburgueria IPhome</p>
+
+            <div id="login-error"></div>
+
+            <div class="form-group">
+                <label for="login-user">Usuário</label>
+                <input type="text" id="login-user" placeholder="admin">
+            </div>
+            <div class="form-group">
+                <label for="login-pass">Senha</label>
+                <input type="password" id="login-pass" placeholder="* * * * * * *">
+            </div>
+
+            <button class="btn btn-primary">Cadastrar</button>
+            <button class="btn btn-secondary">Entrar</button>
+        </div>
+    </div> -->
+
+    <div id="admin-app" class=" admin-display">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Divide Aí</h2>
+                <p>Hamburgueria Iphome</p>    
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-item active" pagina="dashboard" onclick="navigate('dashboard')">
+                    Dashboard
+                </button>
+                <button class="nav-item" pagina="pedidos" onclick="navigate('pedidos')">
+                    Pedidos
+                </button>
+                <button class="nav-item" pagina="mesas" onclick="navigate('mesas')">
+                    Mesas
+                </button>
+                <button class="nav-item" pagina="cardapio" onclick="navigate('cardapio')">
+                    Cardápio
+                </button>
+                <button class="nav-item" pagina="pagamentos" onclick="navigate('pagamentos')">
+                    Pagamentos
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="btn btn-nav-footer" >Sair</button>
+            </div>
+        </aside>
+        
+
+        <main class="admin-content">
+            <section class="section-dashboard">
+                <div class="admin-page-header">
+                    <h1>Dashboard</h1>
+                    <p>Visão geral do restaurante</p>
+                </div>
+
+                <div class="status-header">
+                    <div class="card-status-header">
+                        <div class="status-title">Pedidos ativos</div>
+                        <div class="status-content">4</div>
+                        <div class="status-desc">5 total</div>
+                    </div>
+                    <div class="card-status-header">
+                        <div class="status-title">Receita hoje</div>
+                        <div class="status-content">R$ 300,00</div>
+                        <div class="status-desc">2 pagamentos</div>
+                    </div>
+                    <div class="card-status-header">
+                        <div class="status-title">Mesas </div>
+                        <div class="status-content">5/12</div>
+                        <div class="status-desc">6 disponiveis</div>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <section class="section-pedidos hidden">Pedidos</section>
+            <section class="section-mesas hidden">Mesas</section>
+            <section class="section-cardapio hidden">Cardápio</section>
+            <section class="section-pagamentos hidden">Pagamentos</section>
+        </main>
+
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
