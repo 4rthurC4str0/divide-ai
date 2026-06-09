@@ -13,7 +13,7 @@
 
 <body>
 
-    <!-- <div class="login-page">
+    <div class="login-page hidden">
         <div class="login-card">
             <h2>Cadastre-se</h2>
             <p>Hamburgueria IPhome</p>
@@ -32,7 +32,7 @@
             <button class="btn btn-primary">Cadastrar</button>
             <button class="btn btn-secondary">Entrar</button>
         </div>
-    </div> -->
+    </div>
 
     <div id="admin-app" class=" admin-display">
         <aside class="sidebar">
@@ -44,11 +44,11 @@
                 <button class="nav-item active" pagina="dashboard" onclick="navigate('dashboard')">
                     Dashboard
                 </button>
-                <button class="nav-item" pagina="pedidos" onclick="navigate('pedidos')">
-                    Pedidos
-                </button>
                 <button class="nav-item" pagina="mesas" onclick="navigate('mesas')">
                     Mesas
+                </button>
+                <button class="nav-item" pagina="pedidos" onclick="navigate('pedidos')">
+                    Pedidos
                 </button>
                 <button class="nav-item" pagina="cardapio" onclick="navigate('cardapio')">
                     Cardápio
@@ -64,7 +64,7 @@
         
 
         <main class="admin-content">
-            <section class="section-dashboard">
+            <section class="section-dashboard hidden">
                 <div class="admin-page-header">
                     <h1>Dashboard</h1>
                     <p>Visão geral do restaurante</p>
@@ -86,19 +86,184 @@
                         <div class="status-content">5/12</div>
                         <div class="status-desc">6 disponiveis</div>
                     </div>
+                    <div class="card-status-header">
+                        <div class="status-title">Aguardando Cozinha</div>
+                        <div class="status-content">3</div>
+                        <div class="status-desc">novos pedidos</div>
+                    </div>
                 </div>
 
+                <div class="card-container">
+                    <div class="content-header">
+                        <h3>Pedidos Recentes</h3>
+                        <button class="btn btn-primary btn-sm" onclick="navigate('mesas')">Ver Mesas</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mesa</th>
+                                    <th>Itens</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Mesa 3</td>
+                                    <td class="td-itens">5 itens</td>
+                                    <td class="td-accent">R$ 150,00</td>
+                                    <td><span class="span-status preparando">Preparando</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Mesa 4</td>
+                                    <td class="td-itens">5 itens</td>
+                                    <td class="td-accent">R$ 150,00</td>
+                                    <td><span class="span-status pronto">Pronto</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Mesa 8</td>
+                                    <td class="td-itens">5 itens</td>
+                                    <td class="td-accent">R$ 150,00</td>
+                                    <td><span class="span-status servido">Servido</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Mesa 2</td>
+                                    <td class="td-itens">5 itens</td>
+                                    <td class="td-accent">R$ 150,00</td>
+                                    <td><span class="span-status cancelado">Cancelado</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Mesa 3</td>
+                                    <td class="td-itens">5 itens</td>
+                                    <td class="td-accent">R$ 150,00</td>
+                                    <td><span class="span-status preparando">Preparando</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Mesa 1</td>
+                                    <td class="td-itens">5 itens</td>
+                                    <td class="td-accent">R$ 150,00</td>
+                                    <td><span class="span-status pronto">Pronto</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Mesa 8</td>
+                                    <td class="td-itens">5 itens</td>
+                                    <td class="td-accent">R$ 150,00</td>
+                                    <td><span class="span-status servido">Servido</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Mesa 2</td>
+                                    <td class="td-itens">5 itens</td>
+                                    <td class="td-accent">R$ 150,00</td>
+                                    <td><span class="span-status cancelado">Cancelado</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Mesa 3</td>
+                                    <td class="td-itens">5 itens</td>
+                                    <td class="td-accent">R$ 150,00</td>
+                                    <td><span class="span-status preparando">Preparando</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Mesa 1</td>
+                                    <td class="td-itens">5 itens</td>
+                                    <td class="td-accent">R$ 150,00</td>
+                                    <td><span class="span-status pronto">Pronto</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Mesa 8</td>
+                                    <td class="td-itens">5 itens</td>
+                                    <td class="td-accent">R$ 150,00</td>
+                                    <td><span class="span-status servido">Servido</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Mesa 2</td>
+                                    <td class="td-itens">5 itens</td>
+                                    <td class="td-accent">R$ 150,00</td>
+                                    <td><span class="span-status cancelado">Cancelado</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Mesa 3</td>
+                                    <td class="td-itens">5 itens</td>
+                                    <td class="td-accent">R$ 150,00</td>
+                                    <td><span class="span-status preparando">Preparando</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Mesa 1</td>
+                                    <td class="td-itens">5 itens</td>
+                                    <td class="td-accent">R$ 150,00</td>
+                                    <td><span class="span-status pronto">Pronto</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </section>
 
 
+            <section class="section-mesas ">
+                <div class="admin-page-header">
+                    <h1>Mesas & Pedidos</h1>
+                    <p>Clique em uma mesa para ver pedidos, adicionar itens ou fechar a conta</p>
+                </div>
+
+                <div class="content-header">
+                    <div>
+                        <span class="span-status status-disponivel">Disponivel</span>
+                        <span class="span-status status-ocupada">Ocupada</span>
+                        <span class="span-status status-reservada">Reservada</span>
+                        <span >Número no canto = pedidos ativos</span>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary btn-sm" onclick="abrirModalMesa()">+ Nova Mesa</button>
+                        <button class="btn btn-secondary btn-sm">+ Novo Pedido</button>
+                    </div>
+                </div>
+
+                <div class="grid-mesas" id="grid-mesas"></div>
+
+            </section>
             <section class="section-pedidos hidden">Pedidos</section>
-            <section class="section-mesas hidden">Mesas</section>
             <section class="section-cardapio hidden">Cardápio</section>
             <section class="section-pagamentos hidden">Pagamentos</section>
         </main>
 
     </div>
 
+    <!-- ======================= MODALS ============================== -->
+
+    <div class="modal-overlay" id="modal-mesa">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="titulo-modal-mesa">Nova Mesa</h3>
+                <button class="fechar-modal" onclick="fecharModal('modal-mesa')">x</button>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Número</label>
+                    <input id="numero-mesa" min="1" placeholder="Ex: 15" type="number">
+                </div>
+                <div class="form-group">
+                    <label>Capacidade</label>
+                    <input id="capacidade-mesa" min="1" placeholder="Ex: 4" type="number">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <select id="status-mesa">
+                    <option value="disponivel">Disponível</option>
+                    <option value="ocupada">Ocupada</option>
+                    <option value="reservada">Reservada</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-sm" onclick="fecharModal('modal-mesa')">Cancelar</button>
+                <button class="btn btn-primary btn-sm" onclick="cadastrarMesa()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+
     <script src="js/admin.js"></script>
+    <script src="js/utils.js"></script>
 </body>
 </html>
