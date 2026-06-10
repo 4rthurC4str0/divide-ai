@@ -66,7 +66,7 @@
         <main class="admin-content">
             <section class="section-dashboard hidden">
                 <div class="admin-page-header">
-                    <h1>Dashboard</h1>
+                    <h2>Dashboard</h2>
                     <p>Visão geral do restaurante</p>
                 </div>
 
@@ -101,7 +101,7 @@
                     <div class="table-container">
                         <table>
                             <thead>
-                                <tr>
+                                <tr class="head-table">
                                     <th>Mesa</th>
                                     <th>Itens</th>
                                     <th>Total</th>
@@ -200,9 +200,9 @@
             </section>
 
 
-            <section class="section-mesas ">
+            <section class="section-mesas hidden">
                 <div class="admin-page-header">
-                    <h1>Mesas & Pedidos</h1>
+                    <h2>Mesas & Pedidos</h2>
                     <p>Clique em uma mesa para ver pedidos, adicionar itens ou fechar a conta</p>
                 </div>
 
@@ -211,7 +211,7 @@
                         <span class="span-status status-disponivel">Disponivel</span>
                         <span class="span-status status-ocupada">Ocupada</span>
                         <span class="span-status status-reservada">Reservada</span>
-                        <span >Número no canto = pedidos ativos</span>
+                        <span class="desc-span">Número no canto = pedidos ativos</span>
                     </div>
                     <div>
                         <button class="btn btn-primary btn-sm" onclick="abrirModalMesa()">+ Nova Mesa</button>
@@ -222,8 +222,37 @@
                 <div class="grid-mesas" id="grid-mesas"></div>
 
             </section>
-            <section class="section-pedidos hidden">Pedidos</section>
-            <section class="section-cardapio hidden">Cardápio</section>
+
+            <section class="section-pedidos hidden">
+                Pedidos
+            </section>
+
+            <section class="section-cardapio ">
+                <div>
+                    <div class="admin-page-header">
+                        <h2>Cardápio</h2>
+                        <p>Crie, edite e organize seu cardápio</p>
+                    </div>
+
+                    <div class="content-header" >
+                        <div class="categorias-opcoes" id="opcoes-filtros-cardapio">
+                            <span class="categoria-opcao active" data-categoria="Todos" onclick="filtrarCardapio('Todos')">Todos</span>
+                            <span class="categoria-opcao" data-categoria="Entradas" onclick="filtrarCardapio('Entradas')">Entradas</span>
+                            <span class="categoria-opcao" data-categoria="Pratos Principais" onclick="filtrarCardapio('Pratos Principais')">Pratos Principais</span>
+                            <span class="categoria-opcao" data-categoria="Bebidas" onclick="filtrarCardapio('Bebidas')">Bebidas</span>
+                            <span class="categoria-opcao" data-categoria="Sobremesas" onclick="filtrarCardapio('Sobremesas')">Sobremesas</span>
+                        </div>
+
+                        <button class="btn btn-primary btn-sm" onclick="abrirModalCardapio()">+ Novo Item</button>
+
+                    </div>
+
+                    <div id="categorias-cardapio"></div>
+
+                </div>
+            </section>
+
+
             <section class="section-pagamentos hidden">Pagamentos</section>
         </main>
 
@@ -231,6 +260,7 @@
 
     <!-- ======================= MODALS ============================== -->
 
+<!-- Modal - Cadastrar Mesa -->
     <div class="modal-overlay" id="modal-mesa">
         <div class="modal">
             <div class="modal-header">
@@ -261,6 +291,58 @@
             </div>
         </div>
     </div>
+
+<!-- Modal - Cadastrar Itens Menu -->
+<div class="modal-overlay" id="modal-cardapio">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 id="titulo-modal-cardapio">Novo Item</h3>
+            <button class="fechar-modal" onclick="fecharModal('modal-cardapio')">x</button>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Nome</label>
+                <input type="text" placeholder="Ex: Frango à Milanesa" id="menu-nome">
+            </div>
+            <div class="form-group">
+                <label>Categoria</label>
+                <select id="menu-categoria" >
+                    <option>Entradas</option>
+                    <option>Pratos Principais</option>
+                    <option>Bebidas</option>
+                    <option>Sobremesas</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Descrição Curta</label>
+            <input type="text" placeholder="Descrição rápida" id="menu-descricao">
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Preço (R$)</label>
+                <input type=" number" placeholder="0.00" id="menu-preco" min="0" step="0.01">
+            </div>
+            <div class="form-group">
+                <label>Preparo (min)</label>
+                <input type="number" placeholder="5" min="5" id="menu-tempo-preparo">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Detalhes</label>
+            <textarea id="menu-detalhes" rows="6" placeholder="Descrição completa..."></textarea>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-secondary btn-sm" onclick="fecharModal('modal-cardapio')">Cancelar</button>
+            <button class="btn btn-primary btn-sm" onclick="cadastrarItemMenu()">Salvar</button>
+        </div>
+    </div>
+</div>
 
 
     <script src="js/admin.js"></script>

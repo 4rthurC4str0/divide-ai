@@ -1,9 +1,9 @@
 
 
-function abrirModal(id) {
-    document.getElementById(id).classList.add('open')
+function abrirModal(modal) {
+    document.getElementById(modal).classList.add('open')
 }
 
-function fecharModal(id) {
-    document.getElementById(id).classList.remove('open')   
+function fecharModal(modal) {
+    document.getElementById(modal).classList.remove('open')   
 }
