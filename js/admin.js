@@ -1,5 +1,4 @@
-let todasMesas = [];
-let itensCardapio = []
+
 let idMesaEmEdicao = null;
 let idItemEmEdicao = null;
 
@@ -53,6 +52,10 @@ function cadastrarMesa() {
             numero: numeroMesa,
             capacidade: capacidadeMesa,
             status: statusMesa,
+            comanda: {
+                total: 0,
+            },
+            pedidos: [],
         }
         todasMesas.push(novaMesa)
     }
@@ -66,7 +69,7 @@ function deletarMesa(id) {
     const indexMesa = id ? todasMesas.findIndex(mesa => mesa.id === id): null
     console.log(indexMesa)
 
-    todasMesas = todasMesas.filter((mesa, index) => index !== indexMesa)
+    todasMesas.splice(indexMesa, 1)
 
     console.log(todasMesas)
     renderizarCardMesas();
@@ -91,30 +94,30 @@ function renderizarCardMesas() {
 
 /**************************************************** CARDAPIO ********************************************* */
 
-let categoriaAtivaCardapio = 'Todos'
+let categoriaAtivaCardapio = 'todos'
 
 const CAT_CONFIG = {
-  'Entradas':         { emoji: '🥗', color: 'var(--font-green)',  dim: 'var(--bg-green)'  },
-  'Pratos Principais':{ emoji: '🍽', color: 'var(--font-accent)', dim: 'var(--accent-background)' },
-  'Bebidas':          { emoji: '🥤', color: 'var(--font-blue)',   dim: 'var(--bg-blue)'   },
-  'Sobremesas':       { emoji: '🍰', color: 'var(--font-yellow)', dim: 'var(--bg-yellow)' },
+  'entrada':        { emoji: '🥗', color: 'var(--font-green)',  dim: 'var(--bg-green)', value:'Entradas',  },
+  'prato-principal':{ emoji: '🍽', color: 'var(--font-accent)', dim: 'var(--accent-background)', value:'Pratos Principais', },
+  'bebida':          { emoji: '🥤', color: 'var(--font-blue)',   dim: 'var(--bg-blue)', value:'Bebidas',   },
+  'sobremesa':       { emoji: '🍰', color: 'var(--font-yellow)', dim: 'var(--bg-yellow)', value:'Sobremesas', },
 };
 
-function filtrarMenuCategorias(categoria) {
-    // toggle() diciona uma classe css caso ela não exista, no caso adiciona ao item que tem um atributo com o mesmo valor do passado na função
-    document.querySelectorAll('.categoria-opcao').forEach(cat => cat.classList.toggle('active', cat.dataset.categoria === categoria))
+// function filtrarMenuCategorias(categoria) {
+//     // toggle() diciona uma classe css caso ela não exista, no caso adiciona ao item que tem um atributo com o mesmo valor do passado na função
+//     document.querySelectorAll('.categoria-opcao').forEach(cat => cat.classList.toggle('active', cat.dataset.categoria === categoria))
 
-}
+// }
 
 function abrirModalCardapio(id) {
   
     idItemEmEdicao = id ? id : null;
     
-    const item = idItemEmEdicao ? itensCardapio.find(i => i.id === idItemEmEdicao) : null;
+    const item = id ? itensCardapio.find(i => i.id === id) : null;
 
     document.getElementById('titulo-modal-cardapio').innerText = item ? 'Editar Item' : 'Novo Item'
     document.getElementById('menu-nome').value = item ? item.nome : '';
-    document.getElementById('menu-categoria').value = item ? item.categoria : 'Entradas';
+    document.getElementById('menu-categoria').value = item ? item.categoria : 'entrada';
     document.getElementById('menu-descricao').value = item ? item.descricao : '';
     document.getElementById('menu-preco').value = item ? item.preco : '';
     document.getElementById('menu-tempo-preparo').value = item ? item.tempoPreparo : '';
@@ -180,9 +183,9 @@ function renderizarCardapio() {
     // o new Set() pega esse array que o map retornou e tira as duplicidades
     // o spread ... pega cada item do objeto que o set criou e distribui no array
     const categorias = [ ...new Set(itensCardapio.map( i => i.categoria))] 
-    const filtrado = categoriaAtivaCardapio === 'Todos' ? categorias : categorias.filter(c => c === categoriaAtivaCardapio)
     
-
+    const filtrado = categoriaAtivaCardapio === 'todos' ? categorias : categorias.filter(c => c === categoriaAtivaCardapio)
+    
     if (!filtrado.length || !itensCardapio.length) {
         container.innerHTML = '<p style="color:var(--p-color); padding:2rem; text-align:center "> Nenhum item encontrado. </p>'
         return;
@@ -191,8 +194,8 @@ function renderizarCardapio() {
     container.innerHTML = filtrado.map(categoria => {
         // items é um array que guarda todos os itens da categoria que tem no filtrado
         const items = itensCardapio.filter(i => i.categoria === categoria)
-        const cfg = CAT_CONFIG[categoria] || { emoji: '📋', color: 'var(--p-color)', dim: 'var(--bg-secondary)' }
-
+        const cfg = CAT_CONFIG[categoria] || { emoji: '📋', color: 'var(--p-color)', dim: 'var(--bg-secondary)', value:'Oxiiii' }
+        
         return `
         
             <div class="cardapio-cat-section" style="margin-bottom:2rem" >
@@ -200,7 +203,7 @@ function renderizarCardapio() {
 
                     <div class="cardapio-cat-label" style="--cat-color:${cfg.color};--cat-dim:${cfg.dim}">
                         <span class="cardapio-cat-emoji">${cfg.emoji}</span>
-                        <span>${categoria}</span>
+                        <span>${cfg.value}</span>
                         <span class="cardapio-cat-count">${items.length}</span>
                     </div>
                 </div>
@@ -246,3 +249,24 @@ function deletarItemCardapio(id) {
 
     renderizarCardapio();
 }
+
+// renderizar No dashboard os pedidos recentes // no momento está renderizando só as mesas, total e status
+function renderizarPedidosRecentes() {
+
+    const corpoTabela = document.querySelector('.section-dashboard .table-container tbody') 
+
+    corpoTabela.innerHTML = todasMesas.map(m => {
+        return `
+            <tr>
+                <td>Mesa ${m.numero}</td>
+                <td class="td-itens">${m.capacidade} itens</td>
+                <td class="td-accent">R$ ${m.comanda.total}</td>
+                <td><span class="span-status preparando">${m.status}</span></td>
+            </tr>
+        `
+    }).join('')
+}
+
+renderizarPedidosRecentes()
+renderizarCardMesas()
+renderizarCardapio()

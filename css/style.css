@@ -284,21 +284,25 @@ input:focus {
 .status-title {
     text-transform: uppercase;
     color: var(--p-color);
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 500;
     letter-spacing: 0.05rem;
     margin-bottom: 0.4rem;
 }
 .status-content {
-    font-size: 2rem;
+    font-size: 1.9rem;
     color: var(--accent);
     font-weight: 700;
     line-height: 1;
 }
+.section-dashboard .status-header .card-status-header:nth-child(2) .status-content {
+    font-size: 1.4rem;
+}
+
 .status-desc {
     color: var(--p-color);
     margin-top: 0.4rem;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
 }
 
 /*----------------------------Conteudo da pagina-------------------------------------------------------*/
@@ -730,3 +734,11 @@ tbody tr:hover {
     color: var(--p-color);
 }
 
+/*********************************************** PAGAMENTOS *******************************/
+
+.section-pagamentos .status-content {
+    font-size: 1.4rem;  
+}
+.section-pagamentos .status-content {
+    font-size: 1.4rem;  
+}
