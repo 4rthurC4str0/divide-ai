@@ -194,6 +194,8 @@ Se pedirem alterações, faça as correções nos seus arquivos e repita os Pass
 ```bash
 git clone <url>              # Baixar o projeto (só na primeira vez)
 git checkout -b minha-branch # Criar e entrar em uma nova branch
+git checkout branch          # Trocar de branch
+git checkout --delete branch # Deletar Branch   
 git status                   # Ver o que foi alterado
 git add .                    # Adicionar tudo para o commit
 git commit -m "mensagem"     # Salvar no histórico local
@@ -219,3 +221,10 @@ git checkout -b nova-feature # Criar uma nova branch para o próximo trabalho
 ---
 
 *Dúvidas? Fale com o administrador do projeto antes de qualquer push direto na `main`.*
+
+## 7. Comandos Adicionais para git 
+
+```bash
+git branch              # Verificar qual branch está usando
+```
+
