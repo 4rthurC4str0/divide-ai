@@ -97,17 +97,17 @@ function renderizarCardMesas() {
 let categoriaAtivaCardapio = 'todos'
 
 const CAT_CONFIG = {
-  'entrada':        { emoji: '🥗', color: 'var(--font-green)',  dim: 'var(--bg-green)', value:'Entradas',  },
-  'prato-principal':{ emoji: '🍽', color: 'var(--font-accent)', dim: 'var(--accent-background)', value:'Pratos Principais', },
-  'bebida':          { emoji: '🥤', color: 'var(--font-blue)',   dim: 'var(--bg-blue)', value:'Bebidas',   },
-  'sobremesa':       { emoji: '🍰', color: 'var(--font-yellow)', dim: 'var(--bg-yellow)', value:'Sobremesas', },
+  'entrada':        {color: 'var(--font-green)',  dim: 'var(--bg-green)', value:'Entradas',  },
+  'prato-principal':{color: 'var(--accent)', dim: 'var(--accent-background)', value:'Pratos Principais', },
+  'bebida':          {color: 'var(--font-blue)',   dim: 'var(--bg-blue)', value:'Bebidas',   },
+  'sobremesa':       {color: 'var(--font-yellow)', dim: 'var(--bg-yellow)', value:'Sobremesas', },
 };
 
 // function filtrarMenuCategorias(categoria) {
 //     // toggle() diciona uma classe css caso ela não exista, no caso adiciona ao item que tem um atributo com o mesmo valor do passado na função
 //     document.querySelectorAll('.categoria-opcao').forEach(cat => cat.classList.toggle('active', cat.dataset.categoria === categoria))
 
-// }
+// }    
 
 function abrirModalCardapio(id) {
   
@@ -194,7 +194,7 @@ function renderizarCardapio() {
     container.innerHTML = filtrado.map(categoria => {
         // items é um array que guarda todos os itens da categoria que tem no filtrado
         const items = itensCardapio.filter(i => i.categoria === categoria)
-        const cfg = CAT_CONFIG[categoria] || { emoji: '📋', color: 'var(--p-color)', dim: 'var(--bg-secondary)', value:'Oxiiii' }
+        const cfg = CAT_CONFIG[categoria] || {color: 'var(--p-color)', dim: 'var(--bg-secondary)', value:'Oxiiii' }
         
         return `
         
@@ -202,7 +202,6 @@ function renderizarCardapio() {
                 <div class="cardapio-cat-header">
 
                     <div class="cardapio-cat-label" style="--cat-color:${cfg.color};--cat-dim:${cfg.dim}">
-                        <span class="cardapio-cat-emoji">${cfg.emoji}</span>
                         <span>${cfg.value}</span>
                         <span class="cardapio-cat-count">${items.length}</span>
                     </div>

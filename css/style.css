@@ -355,7 +355,7 @@ thead tr.head-table {
 th {
     text-align: left;
     padding: 0.75rem 1rem;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 600;
     color: var(--font-secondary);
     text-transform: uppercase;
@@ -739,6 +739,9 @@ tbody tr:hover {
 .section-pagamentos .status-content {
     font-size: 1.4rem;  
 }
-.section-pagamentos .status-content {
-    font-size: 1.4rem;  
+.section-pagamentos .card-status-header:nth-child(2) .status-content {
+    color: var(--font-green);
+}
+.section-pagamentos .card-status-header:nth-child(3) .status-content{
+    color: var(--font-yellow);
 }
