@@ -13,7 +13,7 @@
     --p-color: #7a7670;
     --font-secondary: #c8c4be;
     --border-color: #2a2a2a;
-    --radius: 6px;%
+    --radius: 6px;
     --accent: #c9965a;
     --accent-hover: #d4a96b;
     --accent-background: rgba(201, 150, 90, 0.15);
@@ -164,6 +164,8 @@ body {
     font-size: 14px;
     line-height: 1.6;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 label {
@@ -907,4 +909,26 @@ tbody tr:hover {
 
 .section-pagamentos .card-status-header:nth-child(3) .status-content {
     color: var(--font-yellow);
+}
+
+/* consertar a página "Minha Conta"*/
+[hidden] {
+    display: none !important;
+}
+
+/* **************************************** CARDÁPIO ****************************************/
+.menu-category-title {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--p-color);
+    margin: 2rem 0 1rem 0;
+    font-weight: 600;
+}
+
+#tab-menu {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    padding-bottom: 52px;
 }
