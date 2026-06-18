@@ -156,8 +156,8 @@
     font-weight: 700;
 }
 
-th:last-child,
-td:last-child {
+.tabela-comanda th:last-child,
+.tabela-comanda td:last-child {
     text-align: right;
 }
 
@@ -169,6 +169,12 @@ td:last-child {
     font-weight: bold;
 }
 
+.tabela-comanda thead tr th:nth-child(3) {
+    text-align: right;
+}
+.itens-tabela-comanda tr td:nth-child(3) {
+    text-align: right;
+}
 /*------------- Rian Adicionou até Aqui -----------------*/
 
 

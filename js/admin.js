@@ -273,6 +273,7 @@ function renderizarPedidosRecentes() {
                 <td class="td-itens">${m.capacidade} itens</td>
                 <td class="td-accent">R$ ${m.comanda.total}</td>
                 <td><span class="span-status preparando">${m.status}</span></td>
+                <td style="color: var(--p-color);"> 40 min </td>
             </tr>
         `
     }).join('')

@@ -13,7 +13,7 @@
 
 <body>
 
-    <div class="login-page">
+    <div class="login-page hidden">
 
         <a href="index.html"><button class="btn-login-fixed btn btn-secondary btn-sm">Voltar para o cardápio</button></a>
         
@@ -37,7 +37,7 @@
         </div>
     </div>
 
-    <div id="admin-app" class=" admin-display hidden">
+    <div id="admin-app" class=" admin-display ">
         <aside class="sidebar">
             <div class="sidebar-header">
                 <h2>Divide Aí</h2>
@@ -110,6 +110,7 @@
                                     <th>Itens</th>
                                     <th>Total</th>
                                     <th>Status</th>
+                                    <th>Tempo</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -199,7 +200,7 @@
                 <div class="card-container">
                     
                     <div class="table-container">
-                        <table>
+                        <table class="tabela-pagamentos">
                             <thead>
                                 <tr class="head-table">
                                     <th>Pedido</th>
@@ -207,17 +208,17 @@
                                     <th>Valor</th>
                                     <th>Método</th>
                                     <th>Status</th>
-                                    <th>Hora</th>
+                                    <th style="text-align: left;">Hora</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Mesa 2</td>
-                                    <td>R$ 200,00</td>
+                                    <td style="color: var(--p-color)">1</td>
+                                    <td style="font-weight: 600;">Mesa 2</td>
+                                    <td style="color: var(--accent); font-weight: bold;">R$ 200,00</td>
                                     <td>Cartão</td>
-                                    <td>Concluído</td>
-                                    <td>08:16</td>
+                                    <td> <span class="span-status pronto">Concluído</span></td>
+                                    <td style="text-align: left; color: var(--p-color);">08:16</td>
                                 </tr>
                             </tbody>
                         </table>
