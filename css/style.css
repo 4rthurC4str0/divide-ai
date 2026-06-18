@@ -282,7 +282,14 @@ input:focus {
     border-color: var(--accent);
 }
 
+.btn-login-fixed {
+    position: fixed;
+    top: 1.5rem;
+    left: 1.5rem;
+}
+
 .btn {
+    width: 100%;
     text-align: center;
     border: none;
     border-radius: var(--radius);
@@ -320,6 +327,7 @@ input:focus {
     padding: .55rem 1rem;
     font-size: .8rem;
     font-weight: 600;
+    width: auto;
 }
 
 .btn-delete {
