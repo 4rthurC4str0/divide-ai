@@ -13,7 +13,7 @@
 
 <body>
 
-    <div class="login-page hidden">
+    <div class="login-page ">
 
         <a href="index.html"><button class="btn-login-fixed btn btn-secondary btn-sm">Voltar para o cardápio</button></a>
         
@@ -147,9 +147,155 @@
 
             <section class="section-pedidos hidden">
                 
-                Pedidos
-                
+                <div class="admin-page-header">
+                    <h2>Cozinha — Kanban de Pedidos</h2>
+                    <p>Clique em um card para ver os itens e marcá-los como feitos</p>
+                </div>
 
+                <div style="display:flex;justify-content:flex-end;margin-bottom:5rem">
+                </div>
+
+                <div class="kanban-board">
+                    <div class="kanban-col col-pending">
+                        <div class="kanban-col-header">
+                            <span class="kanban-col-title">Novos Pedidos</span>
+                            <span class="kanban-col-count" id="kanban-count-pending">1</span>
+                        </div>
+
+                        <div class="kanban-cards" id="kanban-pending">
+
+                            <div class="kanban-card" onclick="openKanbanDetail('${o.id}')">
+                                <div class="kanban-card-top">
+                                    <span class="kanban-mesa">Mesa 2</span>
+                                    <span class="kanban-time">29min</span>
+                                </div>
+
+                                <div class="kanban-items-preview">Camarão Empanado ×2, Bife à Parmegiana ×1, Cerveja Artesanal ×3</div>
+
+                                <div style="font-size:.75rem;color:var(--accent);margin-bottom:.5rem">📝 Cerveja bem gelada</div>
+                                <div class="kanban-footer">
+                                    <div class="kanban-progress">
+                                        <div class="progress-dot done"></div>
+                                        <div class="progress-dot"></div>
+                                        <div class="progress-dot"></div>
+                                    </div>
+                                    <div class="kanban-card-actions" onclick="event.stopPropagation()">
+                                        <button class="btn btn-secondary btn-xs" onclick="advanceOrder('${o.id}','preparing')">▶ Preparar</button>
+                                    </div>
+                                </div>
+                                <div style="font-size:.72rem;color:var(--p-color);margin-top:.45rem;text-align:right">1/3 itens marcados</div>
+                            </div>
+
+                            <div class="kanban-card" onclick="openKanbanDetail('${o.id}')">
+                                <div class="kanban-card-top">
+                                    <span class="kanban-mesa">Mesa 2</span>
+                                    <span class="kanban-time">29min</span>
+                                </div>
+
+                                <div class="kanban-items-preview">Camarão Empanado ×2, Bife à Parmegiana ×1, Cerveja Artesanal ×3</div>
+
+                                <div style="font-size:.75rem;color:var(--accent);margin-bottom:.5rem">📝 Cerveja bem gelada</div>
+                                <div class="kanban-footer">
+                                    <div class="kanban-progress">
+                                        <div class="progress-dot done"></div>
+                                        <div class="progress-dot"></div>
+                                        <div class="progress-dot"></div>
+                                    </div>
+                                    <div class="kanban-card-actions" onclick="event.stopPropagation()">
+                                        <button class="btn btn-secondary btn-xs" onclick="advanceOrder('${o.id}','preparing')">▶ Preparar</button>
+                                    </div>
+                                </div>
+                                <div style="font-size:.72rem;color:var(--p-color);margin-top:.45rem;text-align:right">1/3 itens marcados</div>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                    <div class="kanban-col col-preparing">
+                        <div class="kanban-col-header">
+                            <span class="kanban-col-title">Em Preparo</span>
+                            <span class="kanban-col-count" id="kanban-count-preparing">1</span>
+                        </div>
+
+                        <div class="kanban-cards" id="kanban-preparing">
+                            <div class="kanban-card" onclick="openKanbanDetail('${o.id}')">
+                                <div class="kanban-card-top">
+                                    <span class="kanban-mesa">Mesa 2</span>
+                                    <span class="kanban-time">29min</span>
+                                </div>
+
+                                <div class="kanban-items-preview">Camarão Empanado ×2, Bife à Parmegiana ×1, Cerveja Artesanal ×3</div>
+
+                                <div style="font-size:.75rem;color:var(--accent);margin-bottom:.5rem">📝 Frango bem assado</div>
+                                <div class="kanban-footer">
+                                    <div class="kanban-progress">
+                                        <div class="progress-dot done"></div>
+                                        <div class="progress-dot done"></div>
+                                        <div class="progress-dot"></div>
+                                    </div>
+                                    <div class="kanban-card-actions" onclick="event.stopPropagation()">
+                                        <button class="btn btn-green btn-xs" onclick="advanceOrder('${o.id}','ready')">▶ Pronto</button>
+                                    </div>
+                                </div>
+                                <div style="font-size:.72rem;color:var(--p-color);margin-top:.45rem;text-align:right">2/3 itens marcados</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="kanban-col col-ready">
+                        <div class="kanban-col-header">
+                            <span class="kanban-col-title">Prontos</span>
+                            <span class="kanban-col-count" id="kanban-count-ready">1</span>
+                        </div>
+
+                        <div class="kanban-cards" id="kanban-ready">
+                            <div class="kanban-card" onclick="openKanbanDetail('${o.id}')">
+                                <div class="kanban-card-top">
+                                    <span class="kanban-mesa">Mesa 3</span>
+                                    <span class="kanban-time">49min</span>
+                                </div>
+
+                                <div class="kanban-items-preview">Camarão Empanado ×2, Bife à Parmegiana ×1, Cerveja Artesanal ×3</div>
+
+                                <div style="font-size:.75rem;color:var(--accent);margin-bottom:.5rem">📝 Sem cebola</div>
+                                <div class="kanban-footer">
+                                    <div class="kanban-progress">
+                                        <div class="progress-dot done"></div>
+                                        <div class="progress-dot done"></div>
+                                        <div class="progress-dot"></div>
+                                    </div>
+                                    <div class="kanban-card-actions" >
+                                        <button class="btn btn-secondary btn-xs">▶ Entregue</button>
+                                    </div>
+                                </div>
+                                <div style="font-size:.72rem;color:var(--p-color);margin-top:.45rem;text-align:right">2/3 itens marcados</div>
+                            </div>
+                            <div class="kanban-card" onclick="openKanbanDetail('${o.id}')">
+                                <div class="kanban-card-top">
+                                    <span class="kanban-mesa">Mesa 2</span>
+                                    <span class="kanban-time">29min</span>
+                                </div>
+
+                                <div class="kanban-items-preview">Camarão Empanado ×2, Bife à Parmegiana ×1, Cerveja Artesanal ×3</div>
+
+                                <div style="font-size:.75rem;color:var(--accent);margin-bottom:.5rem">📝 Cerveja bem gelada</div>
+                                <div class="kanban-footer">
+                                    <div class="kanban-progress">
+                                        <div class="progress-dot done"></div>
+                                        <div class="progress-dot"></div>
+                                        <div class="progress-dot"></div>
+                                    </div>
+                                    <div class="kanban-card-actions" onclick="event.stopPropagation()">
+                                        <button class="btn btn-secondary btn-xs" onclick="advanceOrder('${o.id}','preparing')">▶ Preparar</button>
+                                    </div>
+                                </div>
+                                <div style="font-size:.72rem;color:var(--p-color);margin-top:.45rem;text-align:right">1/3 itens marcados</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>                
+                
             </section>
 
             <section class="section-cardapio hidden">

@@ -31,13 +31,22 @@ let todasMesas = [
 
 let itensCardapio = [
     {
-        id: 50,
-        nome: 'Macarrão foda',
+        id: 49,
+        nome: 'Macarrão brabo',
         categoria: 'prato-principal',
         descricao: 'Macarrãozim passado na manteiga',
-        preco: 25,
+        preco: 60,
         tempoPreparo: 30,
         detalhes: 'Macarrãozim passado na manteiga',
+    },
+    {
+        id: 50,
+        nome: 'Pizza crucante',
+        categoria: 'prato-principal',
+        descricao: 'pizzazinha fininha crucante',
+        preco: 25,
+        tempoPreparo: 30,
+        detalhes: 'Sem palavras né',
     },
     {
         id: 51,

@@ -10,6 +10,8 @@ function navigate(pagina) {
     document.querySelectorAll('.admin-content > section').forEach(s => s.classList.add('hidden'));
 
     document.querySelector(`.section-${pagina}`).classList.remove('hidden');
+
+    renderizarPedidosRecentes()
 }
 
 function entrarAdmin(){

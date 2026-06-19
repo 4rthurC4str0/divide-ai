@@ -83,7 +83,7 @@
 
 .tab-btn.active {
     color: var(--accent);
-    border-bottom-color: var(--accent);  
+    border-bottom-color: var(--accent);
 }
 
 .site-header {
@@ -106,7 +106,7 @@
 }
 
 .site-header h1 {
-    font-size: 1.2rem;  
+    font-size: 1.2rem;
 }
 
 .site-header .subtitle {
@@ -172,9 +172,11 @@
 .tabela-comanda thead tr th:nth-child(3) {
     text-align: right;
 }
+
 .itens-tabela-comanda tr td:nth-child(3) {
     text-align: right;
 }
+
 /*------------- Rian Adicionou até Aqui -----------------*/
 
 
@@ -351,6 +353,16 @@ input:focus {
     width: auto;
     padding: 0.2rem 0.55rem;
     font-size: 0.75rem;
+}
+
+.btn-green {
+    background: var(--bg-green);
+    color: var(--font-green);
+    border: 1px solid rgba(90, 184, 112, .25)
+}
+
+.btn-green:hover {
+    background: rgba(90, 184, 112, .25)
 }
 
 .btn-nav-footer {
@@ -972,7 +984,207 @@ tbody tr:hover {
     border-bottom: 1px solid var(--bg-secondary);
 }
 
-#tab-menu {
+/********************** kanban-pedidos ********************/
+.page-inner {
+    padding: 2rem 2.5rem
+}
+
+.kanban-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    align-items: start
+}
+
+.kanban-col {
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+    overflow: hidden
+}
+
+.kanban-col-header {
+    padding: .85rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+.kanban-col-title {
+    font-size: .82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .07em
+}
+
+.kanban-col-count {
+    background: var(--border-color);
+    color: var(--p-color);
+    border-radius: 20px;
+    padding: .1rem .55rem;
+    font-size: .75rem;
+    font-weight: 600
+}
+
+.kanban-col.col-pending .kanban-col-header {
+    border-bottom-color: rgba(212, 192, 90, .4)
+}
+
+.kanban-col.col-pending .kanban-col-title {
+    color: var(--font-yellow)
+}
+
+.kanban-col.col-preparing .kanban-col-header {
+    border-bottom-color: rgba(90, 159, 212, .4)
+}
+
+.kanban-col.col-preparing .kanban-col-title {
+    color: var(--font-blue)
+}
+
+.kanban-col.col-ready .kanban-col-header {
+    border-bottom-color: rgba(90, 184, 112, .4)
+}
+
+.kanban-col.col-ready .kanban-col-title {
+    color: var(--font-green)
+}
+
+
+.kanban-cards {
+    padding: .65rem;
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+    min-height: 120px
+}
+
+.kanban-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: .9rem 1rem;
+    cursor: pointer;
+    transition: border-color .15s, transform .15s
+}
+
+.kanban-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px)
+}
+
+.kanban-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: .5rem
+}
+
+.kanban-mesa {
+    font-weight: 700;
+    font-size: .95rem;
+    color: var(--font-color)
+}
+
+.kanban-time {
+    font-size: .72rem;
+    color: var(--p-color)
+}
+
+.kanban-items-preview {
+    font-size: .78rem;
+    color: var(--fg-sec);
+    margin-bottom: .6rem;
+    line-height: 1.5
+}
+
+.kanban-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+.kanban-progress {
+    display: flex;
+    gap: 3px;
+    align-items: center
+}
+
+.progress-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border-color)
+}
+
+.progress-dot.done {
+    background: var(--font-green)
+}
+
+.kanban-card-actions {
+    display: flex;
+    gap: .4rem
+}
+
+.kanban-empty {
+    padding: 2rem 1rem;
+    text-align: center;
+    color: var(--p-color);
+    font-size: .82rem
+}
+
+.kanban-mesa {
+    font-weight: 700;
+    font-size: .95rem;
+    color: var(--font-color)
+}
+
+.kanban-time {
+    font-size: .72rem;
+    color: var(--p-color)
+}
+
+.kanban-items-preview {
+    font-size: .78rem;
+    color: var(--font-secondary);
+    margin-bottom: .6rem;
+    line-height: 1.5
+}
+
+.kanban-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+.kanban-progress {
+    display: flex;
+    gap: 3px;
+    align-items: center
+}
+
+.progress-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border-color)
+}
+
+.progress-dot.done {
+    background: var(--font-green)
+}
+
+.kanban-card-actions {
+    display: flex;
+    gap: .4rem
+}
+
+.kanban-empty {
+    padding: 2rem 1rem;
+    text-align: center;
+    color: var(--p-color);
+    font-size: .82rem
+}#tab-menu {
     max-width: 1100px;
     margin: 0 auto;
     width: 100%;
