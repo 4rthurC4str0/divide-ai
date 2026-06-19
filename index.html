@@ -22,254 +22,256 @@
                 <h1>Acompanhamento de Pedidos</h1>
                 <p class="subtitle">Restaurante &amp; Bar</p>
             </div>
+            <a href="admin.html"><button class="btn btn-secondary btn-sm" >Área admin</button></a>
         </div>
     </header>
-    <div class="container">
 
+    <nav class="tab-nav">
+        <div class="container" id="paginas-cliente">
+            <button class="tab-btn active" data-tab="conta" onclick="navegarPaginas('conta')"> Minha Conta</button>
+            <button class="tab-btn" data-tab="menu" onclick="navegarPaginas('menu')"> Cardápio</button>
+            <button class="tab-btn" data-tab="split" onclick="navegarPaginas('split')"> Dividir Conta</button>
+        </div>
+    </nav>
 
-        <nav class="tab-nav">
-            <div class="container">
-                <button class="tab-btn active" data-tab="bill"> Minha Conta</button>
-                <button class="tab-btn" data-tab="menu"> Cardápio</button>
-                <button class="tab-btn" data-tab="split"> Dividir Conta</button>
-            </div>
-        </nav>
-
-        <main class="admin-content">
-            <div id="tab-bill" class="tab-content">
-                <div class="card-container">
-                    <div class="card-header">
-                        <div class="admin-page-header">
-                            <h2>Mesa 7</h2>
-                            <p>Pedido #order-001 · Preparando</p>
-                        </div>
+    <main class="client-content" style="padding: 32px 0;">
+        
+        <section id="tab-conta" class="container">
+            <div class="card-container">
+                <div class="card-header">
+                    <div class="admin-page-header">
+                        <h2>Mesa 7</h2>
+                        <p>Pedido #order-001 · <span class="span-status preparando">Preparando</span></p>
                     </div>
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr class="head-table">
-                                    <th>ITEM</th>
-                                    <th>QTD</th>
-                                    <th>UNITÁRIO</th>
-                                    <th>TOTAL</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Camarão Empanado</td>
-                                    <td>2</td>
-                                    <td>R$ 32,00</td>
-                                    <td>R$ 64,00</td>
-                                </tr>
-                                <tr>
-                                    <td>Bife à Parmegiana</td>
-                                    <td>1</td>
-                                    <td>R$ 58,00</td>
-                                    <td>R$ 58,00</td>
-                                </tr>
-                                <tr>
-                                    <td>Salmão Grelhado</td>
-                                    <td>1</td>
-                                    <td>R$ 65,00</td>
-                                    <td>R$ 65,00</td>
-                                </tr>
-                                <tr>
-                                    <td>Cerveja Artesanal</td>
-                                    <td>3</td>
-                                    <td>R$ 16,00</td>
-                                    <td>R$ 48,00</td>
-                                </tr>
-                                <tr>
-                                    <td>Refrigerante</td>
-                                    <td>2</td>
-                                    <td>R$ 8,00</td>
-                                    <td>R$ 16,00</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiramisú</td>
-                                    <td>2</td>
-                                    <td>R$ 18,00</td>
-                                    <td>R$ 36,00</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                </div>
+                <div class="table-container">
+                    <table class="tabela-comanda">
+                        <thead>
+                            <tr class="head-table">
+                                <th>ITEM</th>
+                                <th>QTD</th>
+                                <th>UNITÁRIO</th>
+                                <th>TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody class="itens-tabela-comanda">
+                            <tr>
+                                <td>Camarão Empanado</td>
+                                <td>2</td>
+                                <td>R$ 32,00</td>
+                                <td>R$ 64,00</td>
+                            </tr>
+                            <tr>
+                                <td>Bife à Parmegiana</td>
+                                <td>1</td>
+                                <td>R$ 58,00</td>
+                                <td>R$ 58,00</td>
+                            </tr>
+                            <tr>
+                                <td>Salmão Grelhado</td>
+                                <td>1</td>
+                                <td>R$ 65,00</td>
+                                <td>R$ 65,00</td>
+                            </tr>
+                            <tr>
+                                <td>Cerveja Artesanal</td>
+                                <td>3</td>
+                                <td>R$ 16,00</td>
+                                <td>R$ 48,00</td>
+                            </tr>
+                            <tr>
+                                <td>Refrigerante</td>
+                                <td>2</td>
+                                <td>R$ 8,00</td>
+                                <td>R$ 16,00</td>
+                            </tr>
+                            <tr>
+                                <td>Tiramisú</td>
+                                <td>2</td>
+                                <td>R$ 18,00</td>
+                                <td>R$ 36,00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="summary-section">
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span>R$ 287,00</span>
                     </div>
-                    <div class="summary-section">
-                        <div class="summary-row">
-                            <span>Subtotal</span>
-                            <span>R$ 287,00</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Serviço (10%)</span>
-                            <span>R$ 28,70</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Couvert artístico</span>
-                            <span>R$ 15,00</span>
-                        </div>
-                        <div class="summary-row grand-total">
-                            <span>TOTAL</span>
-                            <span>R$ 331,70</span>
-                        </div>
+                    <div class="summary-row">
+                        <span>Serviço (10%)</span>
+                        <span>R$ 28,70</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Couvert artístico</span>
+                        <span>R$ 15,00</span>
+                    </div>
+                    <div class="summary-row grand-total">
+                        <span>TOTAL</span>
+                        <span>R$ 331,70</span>
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
-    <div id="tab-menu" class="tab-content hidden">
+        </section>
+    
+    
+        <section id="tab-menu" class="container hidden">
+    
+            <div class="admin-page-header">
+                <h2>Cardápio</h2>
+            </div>
+    
+            <h3 class="menu-category-title">Entradas</h3>
 
-        <div class="admin-page-header">
-            <h2>Cardápio</h2>
-        </div>
-
-        <h3 class="menu-category-title">Entradas</h3>
-        <div class="cardapio-items-grid">
-            <div class="cardapio-item-card">
-                <div class="cardapio-item-top">
-                    <span class="cardapio-item-name">Bruschetta</span>
-                    <span class="cardapio-item-price">R$ 18,00</span>
+            <div class="cardapio-items-grid">
+                <div class="cardapio-item-card">
+                    <div class="cardapio-item-top">
+                        <span class="cardapio-item-name">Bruschetta</span>
+                        <span class="cardapio-item-price">R$ 18,00</span>
+                    </div>
+                    <p class="cardapio-item-desc">Pão tostado com tomate e manjericão</p>
+                    <div class="cardapio-item-meta">
+                        <span class="cardapio-meta-tag"> 10 min</span>
+                    </div>
                 </div>
-                <p class="cardapio-item-desc">Pão tostado com tomate e manjericão</p>
-                <div class="cardapio-item-meta">
-                    <span class="cardapio-meta-tag"> 10 min</span>
+    
+                <div class="cardapio-item-card">
+                    <div class="cardapio-item-top">
+                        <span class="cardapio-item-name">Camarão Empanado</span>
+                        <span class="cardapio-item-price">R$ 32,00</span>
+                    </div>
+                    <p class="cardapio-item-desc">Camarão fresco empanado na hora</p>
+                    <div class="cardapio-item-meta">
+                        <span class="cardapio-meta-tag"> 15 min</span>
+                    </div>
                 </div>
-            </div>
-
-            <div class="cardapio-item-card">
-                <div class="cardapio-item-top">
-                    <span class="cardapio-item-name">Camarão Empanado</span>
-                    <span class="cardapio-item-price">R$ 32,00</span>
-                </div>
-                <p class="cardapio-item-desc">Camarão fresco empanado na hora</p>
-                <div class="cardapio-item-meta">
-                    <span class="cardapio-meta-tag"> 15 min</span>
-                </div>
-            </div>
-
-            <div class="cardapio-item-card">
-                <div class="cardapio-item-top">
-                    <span class="cardapio-item-name">Tábua de Queijos</span>
-                    <span class="cardapio-item-price">R$ 45,00</span>
-                </div>
-                <p class="cardapio-item-desc">Seleção de queijos importados</p>
-                <div class="cardapio-item-meta">
-                    <span class="cardapio-meta-tag"> 5 min</span>
+    
+                <div class="cardapio-item-card">
+                    <div class="cardapio-item-top">
+                        <span class="cardapio-item-name">Tábua de Queijos</span>
+                        <span class="cardapio-item-price">R$ 45,00</span>
+                    </div>
+                    <p class="cardapio-item-desc">Seleção de queijos importados</p>
+                    <div class="cardapio-item-meta">
+                        <span class="cardapio-meta-tag"> 5 min</span>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <h3 class="menu-category-title">Pratos Principais</h3>
-        <div class="cardapio-items-grid">
-            <div class="cardapio-item-card">
-                <div class="cardapio-item-top">
-                    <span class="cardapio-item-name">Bife à Parmegiana</span>
-                    <span class="cardapio-item-price">R$ 58,00</span>
+    
+            <h3 class="menu-category-title">Pratos Principais</h3>
+            <div class="cardapio-items-grid">
+                <div class="cardapio-item-card">
+                    <div class="cardapio-item-top">
+                        <span class="cardapio-item-name">Bife à Parmegiana</span>
+                        <span class="cardapio-item-price">R$ 58,00</span>
+                    </div>
+                    <p class="cardapio-item-desc">Bife grelhado com molho de tomate e queijo derretido</p>
+                    <div class="cardapio-item-meta">
+                        <span class="cardapio-meta-tag"> 25 min</span>
+                    </div>
                 </div>
-                <p class="cardapio-item-desc">Bife grelhado com molho de tomate e queijo derretido</p>
-                <div class="cardapio-item-meta">
-                    <span class="cardapio-meta-tag"> 25 min</span>
+    
+                <div class="cardapio-item-card">
+                    <div class="cardapio-item-top">
+                        <span class="cardapio-item-name">Salmão Grelhado</span>
+                        <span class="cardapio-item-price">R$ 65,00</span>
+                    </div>
+                    <p class="cardapio-item-desc">Salmão fresco com legumes e batata</p>
+                    <div class="cardapio-item-meta">
+                        <span class="cardapio-meta-tag"> 20 min</span>
+                    </div>
                 </div>
-            </div>
-
-            <div class="cardapio-item-card">
-                <div class="cardapio-item-top">
-                    <span class="cardapio-item-name">Salmão Grelhado</span>
-                    <span class="cardapio-item-price">R$ 65,00</span>
-                </div>
-                <p class="cardapio-item-desc">Salmão fresco com legumes e batata</p>
-                <div class="cardapio-item-meta">
-                    <span class="cardapio-meta-tag"> 20 min</span>
-                </div>
-            </div>
-
-            <div class="cardapio-item-card">
-                <div class="cardapio-item-top">
-                    <span class="cardapio-item-name">Frango à Milanesa</span>
-                    <span class="cardapio-item-price">R$ 42,00</span>
-                </div>
-                <p class="cardapio-item-desc">Peito de frango empanado com batata frita</p>
-                <div class="cardapio-item-meta">
-                    <span class="cardapio-meta-tag"> 18 min</span>
-                </div>
-            </div>
-        </div>
-        <h3 class="menu-category-title">Bebidas</h3>
-        <div class="cardapio-items-grid">
-            <div class="cardapio-item-card">
-                <div class="cardapio-item-top">
-                    <span class="cardapio-item-name">Água Mineral</span>
-                    <span class="cardapio-item-price">R$ 5,00</span>
-                </div>
-                <p class="cardapio-item-desc">Garrafa 500ml</p>
-                <div class="cardapio-item-meta">
-                    <span class="cardapio-meta-tag"> 1 min</span>
+    
+                <div class="cardapio-item-card">
+                    <div class="cardapio-item-top">
+                        <span class="cardapio-item-name">Frango à Milanesa</span>
+                        <span class="cardapio-item-price">R$ 42,00</span>
+                    </div>
+                    <p class="cardapio-item-desc">Peito de frango empanado com batata frita</p>
+                    <div class="cardapio-item-meta">
+                        <span class="cardapio-meta-tag"> 18 min</span>
+                    </div>
                 </div>
             </div>
-
-            <div class="cardapio-item-card">
-                <div class="cardapio-item-top">
-                    <span class="cardapio-item-name">Refrigerante</span>
-                    <span class="cardapio-item-price">R$ 8,00</span>
+            <h3 class="menu-category-title">Bebidas</h3>
+            <div class="cardapio-items-grid">
+                <div class="cardapio-item-card">
+                    <div class="cardapio-item-top">
+                        <span class="cardapio-item-name">Água Mineral</span>
+                        <span class="cardapio-item-price">R$ 5,00</span>
+                    </div>
+                    <p class="cardapio-item-desc">Garrafa 500ml</p>
+                    <div class="cardapio-item-meta">
+                        <span class="cardapio-meta-tag"> 1 min</span>
+                    </div>
                 </div>
-                <p class="cardapio-item-desc">Lata 350ml - Coca-Cola, Sprite ou Guaraná</p>
-                <div class="cardapio-item-meta">
-                    <span class="cardapio-meta-tag"> 2 min</span>
+    
+                <div class="cardapio-item-card">
+                    <div class="cardapio-item-top">
+                        <span class="cardapio-item-name">Refrigerante</span>
+                        <span class="cardapio-item-price">R$ 8,00</span>
+                    </div>
+                    <p class="cardapio-item-desc">Lata 350ml - Coca-Cola, Sprite ou Guaraná</p>
+                    <div class="cardapio-item-meta">
+                        <span class="cardapio-meta-tag"> 2 min</span>
+                    </div>
                 </div>
-            </div>
-
-            <div class="cardapio-item-card">
-                <div class="cardapio-item-top">
-                    <span class="cardapio-item-name">Cerveja Artesanal</span>
-                    <span class="cardapio-item-price">R$ 16,00</span>
+    
+                <div class="cardapio-item-card">
+                    <div class="cardapio-item-top">
+                        <span class="cardapio-item-name">Cerveja Artesanal</span>
+                        <span class="cardapio-item-price">R$ 16,00</span>
+                    </div>
+                    <p class="cardapio-item-desc">Chopp da casa - 300ml</p>
+                    <div class="cardapio-item-meta">
+                        <span class="cardapio-meta-tag"> 3 min</span>
+                    </div>
                 </div>
-                <p class="cardapio-item-desc">Chopp da casa - 300ml</p>
-                <div class="cardapio-item-meta">
-                    <span class="cardapio-meta-tag"> 3 min</span>
-                </div>
-            </div>
-            <div class="cardapio-item-card">
-                <div class="cardapio-item-top">
-                    <span class="cardapio-item-name">Vinho Tinto</span>
-                    <span class="cardapio-item-price">R$ 22,00</span>
-                </div>
-                <p class="cardapio-item-desc">Taça de vinho tinto selecionado</p>
-                <div class="cardapio-item-meta">
-                    <span class="cardapio-meta-tag"> 2 min</span>
-                </div>
-            </div>
-        </div>
-        <h3 class="menu-category-title">Sobremesas</h3>
-        <div class="cardapio-items-grid">
-            <div class="cardapio-item-card">
-                <div class="cardapio-item-top">
-                    <span class="cardapio-item-name">Tiramisú</span>
-                    <span class="cardapio-item-price">R$ 18,00</span>
-                </div>
-                <p class="cardapio-item-desc">clássico italiano com café mascarpone</p>
-                <div class="cardapio-item-meta">
-                    <span class="cardapio-meta-tag">5 min</span>
-                </div>
-            </div>
-
-            <div class="cardapio-item-card">
-                <div class="cardapio-item-top">
-                    <span class="cardapio-item-name">Pavê de chocolate</span>
-                    <span class="cardapio-item-price">R$ 16,00</span>
-                </div>
-                <p class="cardapio-item-desc">Sobremesa gelada com chocolate derretido</p>
-                <div class="cardapio-item-meta">
-                    <span class="cardapio-meta-tag"> 5 min</span>
+                <div class="cardapio-item-card">
+                    <div class="cardapio-item-top">
+                        <span class="cardapio-item-name">Vinho Tinto</span>
+                        <span class="cardapio-item-price">R$ 22,00</span>
+                    </div>
+                    <p class="cardapio-item-desc">Taça de vinho tinto selecionado</p>
+                    <div class="cardapio-item-meta">
+                        <span class="cardapio-meta-tag"> 2 min</span>
+                    </div>
                 </div>
             </div>
-
-            <div class="cardapio-item-card">
-                <div class="cardapio-item-top">
-                    <span class="cardapio-item-name">Sorvete Artesanal</span>
-                    <span class="cardapio-item-price">R$ 14,00</span>
+            <h3 class="menu-category-title">Sobremesas</h3>
+            <div class="cardapio-items-grid">
+                <div class="cardapio-item-card">
+                    <div class="cardapio-item-top">
+                        <span class="cardapio-item-name">Tiramisú</span>
+                        <span class="cardapio-item-price">R$ 18,00</span>
+                    </div>
+                    <p class="cardapio-item-desc">clássico italiano com café mascarpone</p>
+                    <div class="cardapio-item-meta">
+                        <span class="cardapio-meta-tag">5 min</span>
+                    </div>
                 </div>
-                <p class="cardapio-item-desc">Bola Dupla - Escolha dois sabores</p>
-                <div class="cardapio-item-meta">
-                    <span class="cardapio-meta-tag"> 5 min</span>
+    
+                <div class="cardapio-item-card">
+                    <div class="cardapio-item-top">
+                        <span class="cardapio-item-name">Pavê de chocolate</span>
+                        <span class="cardapio-item-price">R$ 16,00</span>
+                    </div>
+                    <p class="cardapio-item-desc">Sobremesa gelada com chocolate derretido</p>
+                    <div class="cardapio-item-meta">
+                        <span class="cardapio-meta-tag"> 5 min</span>
+                    </div>
+                </div>
+    
+                <div class="cardapio-item-card">
+                    <div class="cardapio-item-top">
+                        <span class="cardapio-item-name">Sorvete Artesanal</span>
+                        <span class="cardapio-item-price">R$ 14,00</span>
+                    </div>
+                    <p class="cardapio-item-desc">Bola Dupla - Escolha dois sabores</p>
+                    <div class="cardapio-item-meta">
+                        <span class="cardapio-meta-tag"> 5 min</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -464,7 +466,5 @@
     </script>
 
 </body>
-
-</html>
 
 </html>

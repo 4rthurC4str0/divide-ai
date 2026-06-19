@@ -14,6 +14,9 @@
 <body>
 
     <div class="login-page hidden">
+
+        <a href="index.html"><button class="btn-login-fixed btn btn-secondary btn-sm">Voltar para o cardápio</button></a>
+        
         <div class="login-card">
             <h2>Cadastre-se</h2>
             <p>Hamburgueria IPhome</p>
@@ -26,15 +29,15 @@
             </div>
             <div class="form-group">
                 <label for="login-pass">Senha</label>
-                <input type="password" id="login-pass" placeholder="* * * * * * *">
+                <input type="password" id="login-pass" placeholder="* * * * * *">
             </div>
 
-            <button class="btn btn-primary">Cadastrar</button>
-            <button class="btn btn-secondary">Entrar</button>
+            <button class="btn btn-primary" onclick="entrarAdmin()"> Entrar </button>
+            <button class="btn btn-secondary">Cadastrar</button>
         </div>
     </div>
 
-    <div id="admin-app" class=" admin-display">
+    <div id="admin-app" class=" admin-display ">
         <aside class="sidebar">
             <div class="sidebar-header">
                 <h2>Divide Aí</h2>
@@ -58,17 +61,17 @@
                 </button>
             </nav>
             <div class="sidebar-footer">
-                <button class="btn btn-nav-footer" >Sair</button>
+                <button class="btn btn-nav-footer" onclick="sairAdmin()">Sair</button>
             </div>
         </aside>
         
 
         <main class="admin-content">
             <section class="section-dashboard hidden">
-                <div class="admin-page-header">
-                    <h2>Dashboard</h2>
-                    <p>Visão geral do restaurante</p>
-                </div>
+                    <div class="admin-page-header">
+                        <h2>Dashboard</h2>
+                        <p>Visão geral do restaurante</p>
+                    </div>
                 
 
                 <div class="status-header">
@@ -107,6 +110,7 @@
                                     <th>Itens</th>
                                     <th>Total</th>
                                     <th>Status</th>
+                                    <th>Tempo</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -174,7 +178,7 @@
             </section>
 
 
-            <section class="section-pagamentos ">
+            <section class="section-pagamentos hidden">
                 <div class="admin-page-header">
                     <h2>Pagamentos</h2>
                     <p>Histórico de pagamentos</p>
@@ -196,7 +200,7 @@
                 <div class="card-container">
                     
                     <div class="table-container">
-                        <table>
+                        <table class="tabela-pagamentos">
                             <thead>
                                 <tr class="head-table">
                                     <th>Pedido</th>
@@ -204,17 +208,17 @@
                                     <th>Valor</th>
                                     <th>Método</th>
                                     <th>Status</th>
-                                    <th>Hora</th>
+                                    <th style="text-align: left;">Hora</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Mesa 2</td>
-                                    <td>R$ 200,00</td>
+                                    <td style="color: var(--p-color)">1</td>
+                                    <td style="font-weight: 600;">Mesa 2</td>
+                                    <td style="color: var(--accent); font-weight: bold;">R$ 200,00</td>
                                     <td>Cartão</td>
-                                    <td>Concluído</td>
-                                    <td>08:16</td>
+                                    <td> <span class="span-status pronto">Concluído</span></td>
+                                    <td style="text-align: left; color: var(--p-color);">08:16</td>
                                 </tr>
                             </tbody>
                         </table>

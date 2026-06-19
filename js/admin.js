@@ -4,12 +4,24 @@ let idItemEmEdicao = null;
 
 function navigate(pagina) {
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-
+    
     document.querySelector(`[pagina='${pagina}']`).classList.add('active');
-
+    
     document.querySelectorAll('.admin-content > section').forEach(s => s.classList.add('hidden'));
 
     document.querySelector(`.section-${pagina}`).classList.remove('hidden');
+}
+
+function entrarAdmin(){
+    document.querySelector('.login-page').classList.add('hidden')
+    document.querySelector('.admin-display').classList.remove('hidden')
+    navigate('dashboard')
+}
+
+function sairAdmin() {
+    document.querySelector('.login-page').classList.remove('hidden')
+    document.querySelector('.admin-display').classList.add('hidden')
+
 }
 
 /********************************************** MESAS ************************************************ */
@@ -261,6 +273,7 @@ function renderizarPedidosRecentes() {
                 <td class="td-itens">${m.capacidade} itens</td>
                 <td class="td-accent">R$ ${m.comanda.total}</td>
                 <td><span class="span-status preparando">${m.status}</span></td>
+                <td style="color: var(--p-color);"> 40 min </td>
             </tr>
         `
     }).join('')
