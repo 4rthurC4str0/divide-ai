@@ -274,20 +274,197 @@
                     </div>
                 </div>
             </div>
-            <div id="tab-split" class="tab-content" hidden>
-                <div class="card-container">
-                    <div class="admin-page-header">
-                        <h2>Dividir Conta</h2>
-                        <p>Opções de rateio</p>
+        </div>
+    </div>
+
+    <!-- ===================== ABA DIVIDIR CONTA ===================== -->
+    <div id="tab-split" class="tab-content hidden">
+        <div class="split-wrapper">
+
+            <div class="split-page-header">
+                <h2>Dividir Conta</h2>
+            </div>
+
+            <!-- Pessoas na mesa -->
+            <div class="split-section">
+                <h3 class="split-section-title">Pessoas na Mesa</h3>
+
+                <div class="split-people-list">
+                    <div class="split-person-row">
+                        <span class="split-person-name">Pessoa 1</span>
+                        <button class="split-delete-btn btn btn-delete btn-xs" title="Remover pessoa">
+                            <svg class="split-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                </path>
+                            </svg>
+                        </button>
                     </div>
-                    <p class="td-itens">Funcionalidade em desenvolvimento.</p>
+                </div>
+
+                <button class="btn btn-secondary split-add-btn">
+                    <svg class="split-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    <span>Adicionar Pessoa</span>
+                </button>
+            </div>
+
+            <!-- Atribuir itens -->
+            <div class="split-section">
+                <h3 class="split-section-title">Atribuir Itens <span class="split-section-count">(0/6)</span></h3>
+                <p class="split-section-subtitle">Itens sem atribuição serão divididos entre TODAS as pessoas. Você pode
+                    atribuir um item para múltiplas pessoas.</p>
+
+                <div class="split-items-list">
+
+                    <div class="split-item-card">
+                        <div class="split-item-header">
+                            <div>
+                                <h4 class="split-item-title">Camarão Empanado</h4>
+                                <p class="split-item-meta">Qtd: 2 | R$ 64,00</p>
+                            </div>
+                            <span class="split-item-price">R$ 64,00</span>
+                        </div>
+                        <div class="split-item-status">
+                           
+                            <span>Dividido entre TODOS</span>
+                        </div>
+                        <button class="btn btn-secondary split-assign-btn">
+                            <span>+ Atribuir para pessoa...</span>
+                           
+                        </button>
+                    </div>
+
+                    <div class="split-item-card">
+                        <div class="split-item-header">
+                            <div>
+                                <h4 class="split-item-title">Bife à Parmegiana</h4>
+                                <p class="split-item-meta">Qtd: 1 | R$ 58,00</p>
+                            </div>
+                            <span class="split-item-price">R$ 58,00</span>
+                        </div>
+                        <div class="split-item-status">
+                            
+                            <span>Dividido entre TODOS</span>
+                        </div>
+                        <button class="btn btn-secondary split-assign-btn">
+                            <span>+ Atribuir para pessoa...</span>
+                            
+                        </button>
+                    </div>
+
+                    <div class="split-item-card">
+                        <div class="split-item-header">
+                            <div>
+                                <h4 class="split-item-title">Salmão Grelhado</h4>
+                                <p class="split-item-meta">Qtd: 1 | R$ 65,00</p>
+                            </div>
+                            <span class="split-item-price">R$ 65,00</span>
+                        </div>
+                        <div class="split-item-status">
+                           
+                            <span>Dividido entre TODOS</span>
+                        </div>
+                        <button class="btn btn-secondary split-assign-btn">
+                            <span>+ Atribuir para pessoa...</span>
+                          
+                        </button>
+                    </div>
+
                 </div>
             </div>
-        </section>
-    </main>
+            <div class="split-section">
+                <h3 class="split-section-title">Resumo por Pessoa</h3>
 
+                <div class="split-item-card">
+                    <h4 class="split-item-title" style="margin-bottom: 0.5rem; font-size: 1rem;">Pessoa 1</h4>
+                    <p class="split-item-meta" style="margin-bottom: 1rem;">Itens Compartilhados:</p>
 
-    <script src="js/client.js"></script>
+                    <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                        <div class="summary-row" style="padding: 0;">
+                            <span class="split-item-meta">Camarão Empanado x2 ÷ 1</span>
+                            <span style="color: var(--font-color); font-size: 0.85rem;">R$ 64.00</span>
+                        </div>
+                        <div class="summary-row" style="padding: 0;">
+                            <span class="split-item-meta">Bife à Parmegiana x1 ÷ 1</span>
+                            <span style="color: var(--font-color); font-size: 0.85rem;">R$ 58.00</span>
+                        </div>
+                        <div class="summary-row" style="padding: 0;">
+                            <span class="split-item-meta">Salmão Grelhado x1 ÷ 1</span>
+                            <span style="color: var(--font-color); font-size: 0.85rem;">R$ 65.00</span>
+                        </div>
+                        <div class="summary-row" style="padding: 0;">
+                            <span class="split-item-meta">Cerveja Artesanal x3 ÷ 1</span>
+                            <span style="color: var(--font-color); font-size: 0.85rem;">R$ 48.00</span>
+                        </div>
+                        <div class="summary-row" style="padding: 0;">
+                            <span class="split-item-meta">Refrigerante x2 ÷ 1</span>
+                            <span style="color: var(--font-color); font-size: 0.85rem;">R$ 16.00</span>
+                        </div>
+                        <div class="summary-row" style="padding: 0;">
+                            <span class="split-item-meta">Tiramisú x2 ÷ 1</span>
+                            <span style="color: var(--font-color); font-size: 0.85rem;">R$ 36.00</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-section" style="margin-top: 0.5rem; padding-top: 1rem;">
+                        <div class="summary-row" style="padding: 0;">
+                            <span class="split-item-meta">Subtotal</span>
+                            <span style="color: var(--font-color); font-size: 0.85rem;">R$ 287.00</span>
+                        </div>
+                        <div class="summary-row" style="padding: 0;">
+                            <span class="split-item-meta">Serviço (10%)</span>
+                            <span style="color: var(--font-color); font-size: 0.85rem;">R$ 28.70</span>
+                        </div>
+                        <div class="summary-row" style="padding: 0;">
+                            <span class="split-item-meta">Couvert</span>
+                            <span style="color: var(--font-color); font-size: 0.85rem;">R$ 15.00</span>
+                        </div>
+                        <div class="summary-row grand-total" style="padding: 0; margin-top: 0.5rem; padding-top: 1rem;">
+                            <span style="color: var(--font-color); font-size: 1rem; font-weight: bold;">Total</span>
+                            <span style="color: var(--accent); font-size: 1rem;">R$ 330.70</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ===================== FIM ABA DIVIDIR CONTA ===================== -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // 1. Remove a classe ativa de todos os botões
+                    tabs.forEach(t => t.classList.remove('active'));
+
+                    // 2. Adiciona a classe ativa no botão clicado
+                    tab.classList.add('active');
+
+                    // 3. Esconde TODOS os conteúdos usando os DOIS métodos (classe e atributo) para não dar conflito
+                    contents.forEach(content => {
+                        content.classList.add('hidden');
+                        content.setAttribute('hidden', '');
+                    });
+
+                    // 4. Recupera o valor do data-tab (ex: "bill", "menu", "split")
+                    const tabTarget = tab.getAttribute('data-tab');
+                    const targetContent = document.getElementById(`tab-${tabTarget}`);
+
+                    // 5. Se encontrar a aba, remove completamente qualquer bloqueio visual
+                    if (targetContent) {
+                        targetContent.classList.remove('hidden');
+                        targetContent.removeAttribute('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+
 </body>
 
 </html>
