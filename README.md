@@ -1,5 +1,59 @@
 > # Divide Aí
 
+Um trabalho da matéria de Projeto Integrador do curso de Sistemas para Internet da Universidade Estadual do Piauí
+
+Nosso projeto tem o objetivo de reformular o cardápio digital em restaurantes, um cardápio que vai além de ver o preço, ingredientes e uma foto do item, o objetivo é trazer mais funcionalidades, mais motivos para se escanear o QR-code na mesa. 
+
+## Os grandes diferenciais são: 
+#### 1. Comanda em tempo real: 
+O cliente consegue acompanhar pelo site todos os pedidos da sua comanda, tendo o controle e conhecimento do que foi pedido e do que será cobrado, desde a porcentagem do garçom até o couvert artistico.
+
+![Descrição](assets/comanda.png)
+
+#### 2. Dividir a conta: 
+Uma das principais funções do projeto é a sessão de divisão da conta. Nela você consegue adicionar as pessoas que irão dividir a conta, consegue dividir igualmente para todos ou atribuir somente os itens especificos que cada um consumiu, e o sistema faz todo o cálculo para o cliente. 
+![Descrição](assets/divisao.png)
+
+
+## Sistema para o restaurante:
+Também disponibilizamos o sistema completo para o restaurante administrar as mesas e pedidos:
+
+### 1. Dashboard 
+![Descrição](assets/dashboard.png)
+Aqui o restaurante tem uma visão geral de como estão as mesas, quantos pedidos estão ativos, pedidos recentes, etc.
+
+### 2. Mesas
+![Descrição](assets/mesas.png)
+![Descrição](assets/novopedido.png)
+![Descrição](assets/fazerpedido.png)
+
+Nesta sessão é possivel adicionar/editar uma mesa, ver a disponibilidade e registrar o pedido daquela mesa.
+
+### 3. Cozinha
+![Descrição](assets/cozinha.png)
+
+Nesta aba é possivel acompanhar cada pedido da cozinha, marcar cada item como feito e atualizar o status do pedido.
+
+### 4. Cardápio 
+![Descrição](assets/cardapio-cadastro.png)
+
+Aqui o restaurante registra/edita cada item do cardápio 
+
+### 5. Pagamentos
+![Descrição](assets/pagamentos.png)
+
+Aqui o restaurante acompanha o andamento dos pagamentos, quais foram feitos e quais estão pendentes.
+
+#### Integrantes: 
+- Arthur Castro 
+- Joab Filho
+- Rian Henrique 
+- Murilo Dias Crateús
+- Arthur Alcantara
+
+
+
+
 # Guia de Git e GitHub para Iniciantes
 ### Como colaborar em projetos usando Git
 

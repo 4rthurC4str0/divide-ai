@@ -1,6 +1,9 @@
-
+let carroPedidos = {};
 let idMesaEmEdicao = null;
 let idItemEmEdicao = null;
+let addToOrderId = null;
+let categoriaAtivaCardapio = 'todos'
+let menuSearchQ = ''
 
 function navigate(pagina) {
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -11,7 +14,15 @@ function navigate(pagina) {
 
     document.querySelector(`.section-${pagina}`).classList.remove('hidden');
 
-    renderizarPedidosRecentes()
+    renderizarPagina(pagina);
+}
+
+function renderizarPagina(pagina) {
+    if (pagina === 'dashboard') renderizarPedidosRecentes();
+    if (pagina === 'mesas') renderizarCardMesas();
+    if (pagina === 'cardapio') renderizarCardapio();
+
+
 }
 
 function entrarAdmin(){
@@ -108,7 +119,7 @@ function renderizarCardMesas() {
 
 /**************************************************** CARDAPIO ********************************************* */
 
-let categoriaAtivaCardapio = 'todos'
+
 
 const CAT_CONFIG = {
   'entrada':        {color: 'var(--font-green)',  dim: 'var(--bg-green)', value:'Entradas',  },
@@ -190,6 +201,15 @@ function filtrarCardapio(categoria) {
     renderizarCardapio();
 }
 
+function filtrarCardapioCat(cat) {
+    categoriaAtivaCardapio = cat;
+    document.querySelectorAll('.cat-pill').forEach( opcao => 
+        opcao.classList.toggle( 'active', opcao.dataset.categoria === cat )
+    );
+
+    renderizarItensCardapioPedidos();
+}
+
 function renderizarCardapio() {
 
     const container = document.getElementById("categorias-cardapio");
@@ -236,7 +256,7 @@ function renderizarCardapio() {
     
                             <div class="cardapio-item-meta">
                                 ${item.tempoPreparo ? `<span class="cardapio-meta-tag">⏱ ${item.tempoPreparo}min</span>` : ''}
-                                ${(item.allergens||[]).length ? `<span class="cardapio-meta-tag cardapio-meta-warn">⚠ ${item.allergens.join(', ')}</span>` : ''}
+                                ${(item.alergicos||[]).length ? `<span class="cardapio-meta-tag cardapio-meta-warn">⚠ ${item.alergicos.join(', ')}</span>` : ''}
                             </div>
                             
                             <div class="cardapio-item-actions">
@@ -269,18 +289,175 @@ function renderizarPedidosRecentes() {
     const corpoTabela = document.querySelector('.section-dashboard .table-container tbody') 
 
     corpoTabela.innerHTML = todasMesas.map(m => {
+        
+        const pedidosMesa = pedidos.filter(p => m.idPedidos.includes(p.id))
+
         return `
             <tr>
                 <td>Mesa ${m.numero}</td>
                 <td class="td-itens">${m.capacidade} itens</td>
-                <td class="td-accent">R$ ${m.comanda.total}</td>
-                <td><span class="span-status preparando">${m.status}</span></td>
+                <td class="td-accent">R$ ${pedidosMesa[0].total}</td>
+                <td><span class="span-status status-${m.status}">${m.status}</span></td>
                 <td style="color: var(--p-color);"> 40 min </td>
             </tr>
         `
     }).join('')
 }
 
-renderizarPedidosRecentes()
-renderizarCardMesas()
-renderizarCardapio()
+function abrirModalNovoPedido(idMesa) {
+    
+    idMesaEmEdicao = idMesa || idItemEmEdicao
+    const table = todasMesas.find(m => m.id === idMesaEmEdicao);
+    document.getElementById('titulo-novo-pedido').textContent = table ? ` Novo Pedido - Mesa ${table.numero}` : 'Novo Pedido';
+    
+    const select = document.getElementById('order-table-sel')
+    select.innerHTML = todasMesas.map(m => `
+        <option value="${m.id}" ${m.id === idMesaEmEdicao ? 'selected' : '' } > 
+            Mesa ${m.numero} ( ${m.status} )
+        </option>
+    `).join('');
+
+    categoriaAtivaCardapio = 'todos'
+    document.getElementById('order-menu-search').value = ''; 
+    renderizarItensCardapioPedidos()
+
+
+    abrirModal('modal-novo-pedido')
+}
+
+function renderizarItensCardapioPedidos() {
+  const q = menuSearchQ.toLowerCase();
+
+  const items = itensCardapio.filter(i =>
+    (categoriaAtivaCardapio === 'todos' || i.categoria === categoriaAtivaCardapio) &&
+    (!q || i.nome.toLowerCase().includes(q))
+  );
+
+  document.getElementById('order-items-list').innerHTML = items.map(item => {
+    const qty = carroPedidos[item.id] || 0;
+    return `
+    <div class="order-item-row">
+      <div class="item-info">
+        <div class="item-name">${item.nome}</div>
+        <div class="item-price">${item.preco} · ${item.categoria}</div>
+      </div>    
+      <div class="qty-controls">
+        <button class="qty-btn" onclick="mudarQtd('${item.id}',-1)">−</button>
+        <span class="qty-val">${qty}</span>
+        <button class="qty-btn" onclick="mudarQtd('${item.id}',1)">+</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  
+}
+
+// idItem -> identificar o item que será adicionado no carrinho
+// alt -> parametro que é passada a alteração de valor do item, "-1" item ou "1" item 
+function mudarQtd(idItem, alt) {
+    const current = carroPedidos[idItem] || 0;
+    const next = Math.max(0, current + alt)
+
+    if (next === 0) {
+        delete carroPedidos[idItem] 
+    } else {
+        carroPedidos[idItem] = next
+    }
+    renderizarItensCardapioPedidos()
+    atualizarResumoPedidos()
+}
+
+function atualizarResumoPedidos() {
+    const box = document.getElementById('order-summary-box')
+    const entries = Object.entries(carroPedidos);
+
+    if (!entries.length) { box.innerHTML = '<p style="color:var(--p-color);font-size:.82rem;text-align:center">Nenhum item selecionado</p>'; return; }
+
+    const couvert = parseFloat(document.getElementById('order-couvert-val').value || 15);
+    let subtotal = 0;
+
+    const lines = entries.map(([id, qty]) => {
+
+        const item = itensCardapio.find(i => i.id === id);
+        const tot = item.preco * qty;
+        subtotal += tot;
+
+        return `
+            <div class="summary-item">
+                <span>${item.nome} × ${qty} </span> 
+                <span>R$ ${tot}</span>
+            </div>
+        `;
+    }).join('');
+
+    const service = subtotal * 0.1;
+    const total = subtotal + service + (addToOrderId ? 0 : couvert);
+
+    box.innerHTML = `
+        <h4>Resumo</h4>${lines}
+        <div class="summary-item">
+            <span>Serviço (10%)</span>
+            <span>R$ ${service}</span>
+        </div>
+
+        ${!addToOrderId ? `<div class="summary-item"> <span>Couvert</span> <span>R$ ${couvert}</span> </div>` : ''}
+        
+        <div class="summary-total"><span>Total</span><span> R$ ${total}</span></div>
+    `;
+}
+
+
+function enviarPedido() {
+    const entries = Object.entries(carroPedidos);
+
+    if (entries.length === 0) {
+        alert("Adicione pelo menos um item ao pedido!");
+        return;
+    }
+
+    const idMesa = parseInt(document.getElementById('order-table-sel').value);
+    const mesa = todasMesas.find(m => m.id === idMesa);
+    const couvert = parseFloat(document.getElementById('order-couvert-val').value || 0);
+    const notes = document.getElementById('order-notes').value;
+
+    let subtotal = 0;
+    const items = entries.map(([id, qty]) => {
+        const item = itensCardapio.find(i => i.id === id);
+        const precoTotal = item.preco * qty;
+        subtotal += precoTotal;
+        return {
+            id: Math.random().toString(36).substr(2, 9),
+            idItem: id,
+            nome: item.nome,
+            quantidade: qty,
+            precoUnitario: item.preco,
+            precoTotal: precoTotal,
+            done: false
+        };
+    });
+
+    const service = subtotal * 0.1;
+    const total = subtotal + service + couvert;
+
+    const novoPedido = {
+        id: Date.now(),
+        idMesa: idMesa,
+        numeroMesa: mesa ? mesa.numero : '?',
+        items: items,
+        subtotal: subtotal,
+        porcentagemServico: 10,
+        couvertArtistico: couvert,
+        total: total,
+        criado: new Date(),
+        status: 'pending',
+        notes: notes
+    };
+
+    todosPedidos.push(novoPedido);
+
+    // Limpar carrinho e fechar modal
+    carroPedidos = {};
+    fecharModal('modal-novo-pedido');
+    
+}
+

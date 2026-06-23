@@ -1,55 +1,56 @@
 let todasMesas = [
     {
-        id: 20,
-        numero: 2,
+        id: 1,
+        numero: 1,
         capacidade: 6,
         status: 'reservada',
-        comanda: {
-            total: 120.50,
-        },
-    },
+        idPedidos: [1],
+        criado: new Date(),
+    },  
     {
-        id: 21,
-        numero: 3,
+        id: 2,
+        numero: 2,
         capacidade: 2,
         status: 'ocupada',
-        comanda: {
-            total: 56.07,
-        },
+        idPedidos: [1],
+        criado: new Date(),
     },
     {
-        id: 22,
-        numero: 4,
+        id: 3,
+        numero: 3,
         capacidade: 4,
         status: 'disponivel',
-        comanda: {
-            total: 321.02,
-        },
+        idPedidos: [1],
+        criado: new Date(),
         
     },
 ];
 
 let itensCardapio = [
     {
-        id: 49,
+        id: '1',
         nome: 'Macarrão brabo',
-        categoria: 'prato-principal',
         descricao: 'Macarrãozim passado na manteiga',
-        preco: 60,
-        tempoPreparo: 30,
         detalhes: 'Macarrãozim passado na manteiga',
-    },
-    {
-        id: 50,
-        nome: 'Pizza crucante',
+        preco: 60,  
         categoria: 'prato-principal',
-        descricao: 'pizzazinha fininha crucante',
-        preco: 25,
+        ingredientes: ['Macarrão parafuso', 'Manteiga', 'Sal', 'Salsicha'],
         tempoPreparo: 30,
-        detalhes: 'Sem palavras né',
+        alergicos: ['Glutem'],
     },
     {
-        id: 51,
+        id: '2',
+        nome: 'Pizza crucante',
+        descricao: 'pizzazinha fininha crucante',
+        detalhes: 'Sem palavras né',
+        preco: 25,
+        categoria: 'prato-principal',
+        ingredientes: ['Massa crocante', 'Molho de tomate', 'Calabreza', 'Queijo mussarela'],
+        tempoPreparo: 30,
+        alergicos: ['Glutem'],
+    },
+    {
+        id: '3',
         nome: 'Coca-Cola',
         categoria: 'bebida',
         descricao: 'coquinha gelada',
@@ -58,7 +59,7 @@ let itensCardapio = [
         detalhes: 'coquinha gelada',
     },
     {
-        id: 52,
+        id: '4',
         nome: 'Pastel',
         categoria: 'entrada',
         descricao: 'Pastelzinho crocante',
@@ -68,3 +69,74 @@ let itensCardapio = [
     }
 
 ]
+
+let pedidos = [
+    {
+        id: 1,
+        idMesa: 1,
+        numeroMesa: 2,
+        items: [
+            {
+                id: '1',
+                idItem: '52',
+                nome: 'Pastel',
+                quantidade: 4,
+                precoUnitario: 20,
+                precoTotal: 80,
+                done: false,
+            },
+            {
+                id: '2',
+                idItem: '51',
+                nome: 'Coca-Cola',
+                quantidade: 2,
+                precoUnitario: 15,
+                precoTotal: 30,
+                done: false,
+            }
+        ],
+        
+        subtotal: 110,
+        porcentagemServico: 10,
+        couvertArtistico: 15,
+        total: 135,
+        criado: new Date(Date.now() - 20 * 60000), 
+        status: 'pending', 
+        notes: '',
+    }, 
+    {
+        id: 1,
+        idMesa: 1,
+        numeroMesa: 2,
+        items: [
+            {
+                id: '1',
+                idItem: '52',
+                nome: 'Pastel',
+                quantidade: 4,
+                precoUnitario: 20,
+                precoTotal: 80,
+                done: false,
+            },
+            {
+                id: '2',
+                idItem: '51',
+                nome: 'Coca-Cola',
+                quantidade: 2,
+                precoUnitario: 15,
+                precoTotal: 30,
+                done: false,
+            }
+        ],
+        
+        subtotal: 110,
+        porcentagemServico: 10,
+        couvertArtistico: 15,
+        total: 135,
+        criado: new Date(Date.now() - 20 * 60000), 
+        status: 'pending', 
+        notes: '',
+    }
+]
+
+let todosPedidos = [];

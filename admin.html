@@ -13,7 +13,7 @@
 
 <body>
 
-    <div class="login-page ">
+    <div class="login-page hidden">
 
         <a href="index.html"><button class="btn-login-fixed btn btn-secondary btn-sm">Voltar para o cardápio</button></a>
         
@@ -136,8 +136,8 @@
                         <span class="desc-span">Número no canto = pedidos ativos</span>
                     </div>
                     <div>
-                        <button class="btn btn-primary btn-sm" onclick="abrirModalMesa()">+ Nova Mesa</button>
-                        <button class="btn btn-secondary btn-sm">+ Novo Pedido</button>
+                        <button class="btn btn-secondary btn-sm" onclick="abrirModalMesa()">+ Nova Mesa</button>
+                        <button class="btn btn-primary btn-sm" onclick="abrirModalNovoPedido()">+ Novo Pedido</button>
                     </div>
                 </div>
 
@@ -382,10 +382,10 @@
 
 <!-- Modal - Cadastrar Mesa -->
     <div class="modal-overlay" id="modal-mesa">
-        <div class="modal">
+        <div class="modal modal-lg">
             <div class="modal-header">
                 <h3 id="titulo-modal-mesa">Nova Mesa</h3>
-                <button class="fechar-modal" onclick="fecharModal('modal-mesa')">x</button>
+                <button class="fechar-modal" onclick="fecharModal('modal-mesa')">×</button>
             </div>
             <div class="form-row">
                 <div class="form-group">
@@ -412,57 +412,103 @@
         </div>
     </div>
 
-<!-- Modal - Cadastrar Itens Menu -->
-<div class="modal-overlay" id="modal-cardapio">
-    <div class="modal">
-        <div class="modal-header">
-            <h3 id="titulo-modal-cardapio">Novo Item</h3>
-            <button class="fechar-modal" onclick="fecharModal('modal-cardapio')">x</button>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label>Nome</label>
-                <input type="text" placeholder="Ex: Frango à Milanesa" id="menu-nome">
+<!-- Modal - Cadastrar Itens Cardapio -->
+    <div class="modal-overlay" id="modal-cardapio">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="titulo-modal-cardapio">Novo Item</h3>
+                <button class="fechar-modal" onclick="fecharModal('modal-cardapio')">x</button>
             </div>
-            <div class="form-group">
-                <label>Categoria</label>
-                <select id="menu-categoria" >
-                    <option value="entrada">Entradas</option>
-                    <option value="prato-principal">Pratos Principais</option>
-                    <option value="bebida">Bebidas</option>
-                    <option value="sobremesa">Sobremesas</option>
-                </select>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Nome</label>
+                    <input type="text" placeholder="Ex: Frango à Milanesa" id="menu-nome">
+                </div>
+                <div class="form-group">
+                    <label>Categoria</label>
+                    <select id="menu-categoria" >
+                        <option value="entrada">Entradas</option>
+                        <option value="prato-principal">Pratos Principais</option>
+                        <option value="bebida">Bebidas</option>
+                        <option value="sobremesa">Sobremesas</option>
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>Descrição Curta</label>
-            <input type="text" placeholder="Descrição rápida" id="menu-descricao">
-        </div>
-
-        <div class="form-row">
             <div class="form-group">
-                <label>Preço (R$)</label>
-                <input type=" number" placeholder="0.00" id="menu-preco" min="0" step="0.01">
+                <label>Descrição Curta</label>
+                <input type="text" placeholder="Descrição rápida" id="menu-descricao">
             </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Preço (R$)</label>
+                    <input type=" number" placeholder="0.00" id="menu-preco" min="0" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label>Preparo (min)</label>
+                    <input type="number" placeholder="5" min="5" id="menu-tempo-preparo">
+                </div>
+            </div>
+
             <div class="form-group">
-                <label>Preparo (min)</label>
-                <input type="number" placeholder="5" min="5" id="menu-tempo-preparo">
+                <label>Detalhes</label>
+                <textarea id="menu-detalhes" rows="6" placeholder="Descrição completa..."></textarea>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>Detalhes</label>
-            <textarea id="menu-detalhes" rows="6" placeholder="Descrição completa..."></textarea>
-        </div>
-
-        <div class="modal-footer">
-            <button class="btn btn-secondary btn-sm" onclick="fecharModal('modal-cardapio')">Cancelar</button>
-            <button class="btn btn-primary btn-sm" onclick="cadastrarItemMenu()">Salvar</button>
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-sm" onclick="fecharModal('modal-cardapio')">Cancelar</button>
+                <button class="btn btn-primary btn-sm" onclick="cadastrarItemMenu()">Salvar</button>
+            </div>
         </div>
     </div>
-</div>
+
+    <!-- Modal de Cadastrar Novo Pedido -->
+    <div class="modal-overlay" id="modal-novo-pedido">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h3 id="titulo-novo-pedido">Novo Pedido</h3>
+                <button class="fechar-modal" onclick="fecharModal('modal-novo-pedido')">×</button>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Mesa</label>
+                    <select id="order-table-sel"></select>
+                </div>
+                <div class="form-group">
+                    <label>Couvert (R$)</label>
+                    <input id="order-couvert-val" type="number" value="15" min="0" step="0.5"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Observações</label>
+                <input id="order-notes" type="text" placeholder="Ex: sem cebola, alergia a…"/>
+            </div>
+            <!-- sessão itens e categorias -->
+            <div class="menu-search-bar">
+                <input id="order-menu-search" type="text" placeholder="Buscar item…" style="max-width:220px" oninput="menuSearchQ=this.value; renderizarItensCardapioPedidos()"/>
+                <div class="cat-pills">
+                    <span class="cat-pill active" data-categoria="todos" onclick="filtrarCardapioCat('todos')">Todos</span>
+                    <span class="cat-pill" data-categoria="entrada" onclick="filtrarCardapioCat('entrada')">Entradas</span>
+                    <span class="cat-pill" data-categoria="prato-principal" onclick="filtrarCardapioCat('prato-principal')">Pratos</span>
+                    <span class="cat-pill" data-categoria="bebida" onclick="filtrarCardapioCat('bebida')">Bebidas</span>
+                    <span class="cat-pill" data-categoria="sobremesa" onclick="filtrarCardapioCat('sobremesa')">Sobremesas</span>
+                </div>
+            </div>
+
+            <div id="order-items-list" style="max-height:260px;overflow-y:auto;margin-bottom:.75rem"></div>
+
+            <div class="order-summary" id="order-summary-box"></div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-sm" onclick="fecharModal('modal-novo-pedido')">Cancelar</button>
+                <button class="btn btn-primary btn-sm" onclick="enviarPedido()">Enviar para Cozinha</button>
+            </div>
+
+
+        </div>
+    </div>
 
 
     <script src="js/dados.js"></script>
