@@ -627,6 +627,22 @@ tbody tr:hover {
     color: var(--font-red);
 }
 
+.pending {
+    background: var(--bg-yellow);
+    color: var(--font-yellow);
+}
+
+.preparing {
+    background: var(--bg-blue);
+    color: var(--font-blue);
+}
+
+.ready,
+.delivered {
+    background: var(--bg-green);
+    color: var(--font-green);
+}
+
 
 /**************************************   MESAS       *****************************************/
 .status-disponivel {
@@ -675,6 +691,13 @@ tbody tr:hover {
     border: 2px solid var(--border-color);
     border-radius: var(--radius);
     text-align: center;
+    cursor: pointer;
+    position: relative;
+    transition: border-color .15s, transform .15s;
+}
+
+.card-mesa:hover {
+    transform: translateY(-1px);
 }
 
 .card-mesa.disponivel {
@@ -715,6 +738,31 @@ tbody tr:hover {
 .mesa-capacidade {
     font-size: 0.75rem;
     color: var(--p-color);
+}
+
+.mesa-order-badge {
+    position: absolute;
+    top: .65rem;
+    right: .65rem;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 .35rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--accent);
+    font-size: .75rem;
+    font-weight: 700;
+}
+
+.mesa-card-total {
+    margin-top: .6rem;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: .9rem;
 }
 
 .card-mesa div:last-child {
@@ -762,6 +810,11 @@ tbody tr:hover {
     max-width: 720px;
 }
 
+.modal-xl {
+    max-width: 1280px;
+    width: min(1280px, 96vw);
+}
+
 .modal-overlay.open .modal {
     transform: translateY(0);
 }
@@ -775,6 +828,12 @@ tbody tr:hover {
 
 .modal-header h3 {
     font-size: 1.05rem;
+}
+
+.modal-subtitle {
+    color: var(--p-color);
+    font-size: .78rem;
+    margin-top: .1rem;
 }
 
 .fechar-modal {
@@ -811,6 +870,179 @@ tbody tr:hover {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
+}
+
+.mesa-detail-grid {
+    display: grid;
+    grid-template-columns: minmax(380px, .95fr) minmax(560px, 1.35fr);
+    gap: 1.25rem;
+}
+
+.mesa-detail-panel {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 1rem;
+}
+
+.detail-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    margin-bottom: .85rem;
+}
+
+.detail-panel-header h4 {
+    font-size: .86rem;
+    color: var(--font-secondary);
+}
+
+.mesa-pedidos-lista {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    max-height: 520px;
+    overflow-y: auto;
+}
+
+.mesa-pedido-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: .85rem;
+}
+
+.mesa-pedido-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: .8rem;
+    margin-bottom: .65rem;
+}
+
+.mesa-pedido-top strong,
+.mesa-pedido-top span {
+    display: block;
+}
+
+.mesa-pedido-top span:not(.span-status) {
+    color: var(--p-color);
+    font-size: .78rem;
+    margin-top: .1rem;
+}
+
+.mesa-pedido-items {
+    border-top: 1px solid var(--border-color);
+    padding-top: .55rem;
+}
+
+.mesa-pedido-notes {
+    color: var(--accent);
+    font-size: .78rem;
+    margin-top: .55rem;
+}
+
+.mesa-pedido-actions {
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: .5rem;
+    justify-content: flex-end;
+    margin-top: .75rem;
+    padding-top: .65rem;
+}
+
+.mesa-comanda-resumo {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: .85rem;
+}
+
+.comanda-section + .comanda-section {
+    border-top: 1px solid var(--border-color);
+    margin-top: .9rem;
+    padding-top: .9rem;
+}
+
+.comanda-section-title {
+    color: var(--font-secondary);
+    font-size: .78rem;
+    font-weight: 700;
+    margin-bottom: .65rem;
+    text-transform: uppercase;
+    letter-spacing: .05rem;
+}
+
+.comanda-table-container {
+    max-height: 360px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+}
+
+.tabela-comanda-admin th,
+.tabela-comanda-admin td {
+    padding: .7rem .85rem;
+}
+
+.tabela-comanda-admin th:nth-child(2),
+.tabela-comanda-admin td:nth-child(2) {
+    text-align: center;
+    width: 72px;
+}
+
+.tabela-comanda-admin th:nth-child(3),
+.tabela-comanda-admin td:nth-child(3),
+.tabela-comanda-admin th:nth-child(4),
+.tabela-comanda-admin td:nth-child(4) {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.empty-state {
+    color: var(--p-color);
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: .85rem;
+}
+
+.btn:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.payment-method-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .55rem;
+}
+
+.payment-method-btn {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    color: var(--p-color);
+    cursor: pointer;
+    font-size: .84rem;
+    font-weight: 700;
+    padding: .7rem .8rem;
+    transition: border-color .15s, background .15s, color .15s;
+}
+
+.payment-method-btn:hover {
+    border-color: var(--accent);
+    color: var(--font-color);
+}
+
+.payment-method-btn.active {
+    background: var(--accent-background);
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.input-hint {
+    color: var(--p-color);
+    font-size: .75rem;
+    line-height: 1.4;
 }
 
 /************************************************** CARDAPIO **************************************************/
@@ -1130,6 +1362,20 @@ tbody tr:hover {
     gap: .4rem
 }
 
+.kanban-notes {
+    font-size: .75rem;
+    color: var(--accent);
+    margin-bottom: .5rem;
+    line-height: 1.4
+}
+
+.kanban-progress-text {
+    font-size: .72rem;
+    color: var(--p-color);
+    margin-top: .45rem;
+    text-align: right
+}
+
 .kanban-empty {
     padding: 2rem 1rem;
     text-align: center;
@@ -1181,6 +1427,104 @@ tbody tr:hover {
 .kanban-card-actions {
     display: flex;
     gap: .4rem
+}
+
+.pedido-detail-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .75rem;
+    margin-bottom: 1rem
+}
+
+.pedido-detail-summary div {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: .8rem
+}
+
+.pedido-detail-summary span {
+    display: block;
+    color: var(--p-color);
+    font-size: .75rem;
+    margin-bottom: .35rem
+}
+
+.pedido-detail-summary strong {
+    color: var(--font-color);
+    font-size: .95rem
+}
+
+.pedido-detail-section {
+    margin-top: 1rem
+}
+
+.pedido-detail-section h4 {
+    color: var(--font-color);
+    margin-bottom: .65rem;
+    font-size: .9rem
+}
+
+.pedido-detail-items {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem
+}
+
+.pedido-detail-item {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: .75rem;
+    cursor: pointer
+}
+
+.pedido-detail-item input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--font-green);
+    flex: 0 0 auto
+}
+
+.pedido-detail-item div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    width: 100%
+}
+
+.pedido-detail-item strong {
+    color: var(--font-color);
+    font-size: .9rem
+}
+
+.pedido-detail-item span {
+    color: var(--p-color);
+    font-size: .82rem;
+    white-space: nowrap
+}
+
+.pedido-detail-item.done {
+    border-color: rgba(90, 184, 112, .35);
+    background: var(--bg-green)
+}
+
+.pedido-detail-item.done strong {
+    text-decoration: line-through;
+    color: var(--font-green)
+}
+
+.pedido-detail-note {
+    color: var(--font-secondary);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: .75rem;
+    line-height: 1.5
 }
 
 .kanban-empty {
@@ -1496,4 +1840,36 @@ tbody tr:hover {
     display: flex;
     justify-content: space-between;
     font-size: .95rem
+}
+
+@media (max-width: 820px) {
+    .kanban-board,
+    .pedido-detail-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .mesa-detail-grid,
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .content-header,
+    .detail-panel-header,
+    .modal-footer {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .content-header > div:last-child,
+    .cardapio-item-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5rem;
+    }
+
+    .pedido-detail-item div {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: .25rem;
+    }
 }

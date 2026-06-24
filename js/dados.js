@@ -74,7 +74,7 @@ let pedidos = [
     {
         id: 1,
         idMesa: 1,
-        numeroMesa: 2,
+        numeroMesa: 1,
         items: [
             {
                 id: '1',
@@ -105,9 +105,9 @@ let pedidos = [
         notes: '',
     }, 
     {
-        id: 1,
+        id: 2,
         idMesa: 1,
-        numeroMesa: 2,
+        numeroMesa: 1,
         items: [
             {
                 id: '1',
@@ -140,3 +140,4 @@ let pedidos = [
 ]
 
 let todosPedidos = [];
+let pagamentos = [];
