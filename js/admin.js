@@ -130,7 +130,7 @@ function cadastrarMesa() {
     } else {
 
         let novaMesa = {
-            id: Math.floor(Math.random() * (10 - 2 + 1)) + 2,
+            id: gerarProximoId(todasMesas),
             numero: numeroMesa,
             capacidade: capacidadeMesa,
             status: statusMesa,
@@ -149,13 +149,11 @@ function cadastrarMesa() {
 }
 
 function deletarMesa(id) {
-    const indexMesa = id ? todasMesas.findIndex(mesa => mesa.id === id): null
-    console.log(indexMesa)
+    const indexMesa = id ? todasMesas.findIndex(mesa => mesa.id === id): -1;
+    if (indexMesa === -1) return;
 
-    todasMesas.splice(indexMesa, 1)
-
-    console.log(todasMesas)
-    salvarDadosRestaurante()
+    todasMesas.splice(indexMesa, 1);
+    salvarDadosRestaurante();
     renderizarCardMesas();
 }
 
@@ -193,6 +191,11 @@ function obterPedidosDaMesa(idMesa) {
 
 function formatarValor(valor) {
     return Number(valor || 0).toFixed(2).replace('.', ',');
+}
+
+function gerarProximoId(lista) {
+    const maiorId = lista.reduce((maior, item) => Math.max(maior, Number(item.id || 0)), 0);
+    return maiorId + 1;
 }
 
 function calcularTotalPedidos(listaPedidos) {
@@ -253,7 +256,7 @@ function renderizarComandaCompleta(listaPedidos) {
             <div class="table-container comanda-table-container">
                 <table class="tabela-comanda tabela-comanda-admin">
                     <thead>
-                        <tr class="head-table">/home/arthur/projeto_integrador/divide-ai-cop/assets /home/arthur/projeto_integrador/divide-ai-cop/css /home/arthur/projeto_integrador/divide-ai-cop/js /home/arthur/projeto_integrador/divide-ai-cop/admin.html /home/arthur/projeto_integrador/divide-ai-cop/index.html /home/arthur/projeto_integrador/divide-ai-cop/README.md /home/arthur/projeto_integrador/divide-ai-cop/split-test.html
+                        <tr class="head-table">
                             <th>ITEM</th>
                             <th>QTD</th>
                             <th>UNITÁRIO</th>
@@ -614,12 +617,6 @@ const CAT_CONFIG = {
   'sobremesa':       {color: 'var(--font-yellow)', dim: 'var(--bg-yellow)', value:'Sobremesas', },
 };
 
-// function filtrarMenuCategorias(categoria) {
-//     // toggle() diciona uma classe css caso ela não exista, no caso adiciona ao item que tem um atributo com o mesmo valor do passado na função
-//     document.querySelectorAll('.categoria-opcao').forEach(cat => cat.classList.toggle('active', cat.dataset.categoria === categoria))
-
-// }    
-
 function abrirModalCardapio(id) {
   
     idItemEmEdicao = id ? id : null;
@@ -649,7 +646,7 @@ function cadastrarItemMenu() {
 
     if (idItemEmEdicao) {
         let item = itensCardapio.find(i => String(i.id) === String(idItemEmEdicao))
-        console.log(idItemEmEdicao, 'idItemEdicao')
+        if (!item) return;
         
         item.nome = nomeItem
         item.categoria = categoriaItem
@@ -659,7 +656,7 @@ function cadastrarItemMenu() {
         item.detalhes = detalhesItem
     } else {
         let novoItem = {
-            id: Math.floor(Math.random() * (10 - 2 + 1)) + 2,
+            id: gerarProximoId(itensCardapio),
             nome: nomeItem,
             categoria: categoriaItem,
             descricao: descricaoItem,
