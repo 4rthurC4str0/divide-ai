@@ -30,16 +30,68 @@ function renderizarPagina(pagina) {
 
 }
 
+function mostrarErroLogin(mensagem) {
+    const erroLogin = document.getElementById('login-error');
+    if (!erroLogin) return;
+
+    erroLogin.textContent = mensagem;
+}
+
+function limparCamposLogin() {
+    document.getElementById('login-user').value = '';
+    document.getElementById('login-pass').value = '';
+    mostrarErroLogin('');
+}
+
+function obterUsuarioAdmin(usuario, senha) {
+    if (typeof usuariosAdmin === 'undefined') return null;
+
+    return usuariosAdmin.find(admin => admin.usuario === usuario && admin.senha === senha);
+}
+
 function entrarAdmin(){
-    document.querySelector('.login-page').classList.add('hidden')
-    document.querySelector('.admin-display').classList.remove('hidden')
-    navigate('dashboard')
+    const usuario = document.getElementById('login-user').value.trim();
+    const senha = document.getElementById('login-pass').value;
+    const admin = obterUsuarioAdmin(usuario, senha);
+
+    if (!admin) {
+        mostrarErroLogin('Usuário ou senha inválidos.');
+        return;
+    }
+
+    sessionStorage.setItem('adminLogado', admin.usuario);
+    document.querySelector('.login-page').classList.add('hidden');
+    document.querySelector('.admin-display').classList.remove('hidden');
+    limparCamposLogin();
+    navigate('dashboard');
 }
 
 function sairAdmin() {
-    document.querySelector('.login-page').classList.remove('hidden')
-    document.querySelector('.admin-display').classList.add('hidden')
+    sessionStorage.removeItem('adminLogado');
+    document.querySelector('.login-page').classList.remove('hidden');
+    document.querySelector('.admin-display').classList.add('hidden');
+}
 
+function iniciarLoginAdmin() {
+    const usuarioLogado = sessionStorage.getItem('adminLogado');
+    const adminExiste = typeof usuariosAdmin !== 'undefined' && usuariosAdmin.some(admin => admin.usuario === usuarioLogado);
+
+    if (adminExiste) {
+        document.querySelector('.login-page').classList.add('hidden');
+        document.querySelector('.admin-display').classList.remove('hidden');
+        navigate('dashboard');
+    }
+
+    ['login-user', 'login-pass'].forEach(id => {
+        const campo = document.getElementById(id);
+        if (!campo) return;
+
+        campo.addEventListener('keydown', event => {
+            if (event.key === 'Enter') {
+                entrarAdmin();
+            }
+        });
+    });
 }
 
 /********************************************** MESAS ************************************************ */
@@ -92,6 +144,7 @@ function cadastrarMesa() {
 
     idMesaEmEdicao = null;
     fecharModal('modal-mesa')
+    salvarDadosRestaurante()
     renderizarCardMesas()
 }
 
@@ -102,6 +155,7 @@ function deletarMesa(id) {
     todasMesas.splice(indexMesa, 1)
 
     console.log(todasMesas)
+    salvarDadosRestaurante()
     renderizarCardMesas();
 }
 
@@ -199,7 +253,7 @@ function renderizarComandaCompleta(listaPedidos) {
             <div class="table-container comanda-table-container">
                 <table class="tabela-comanda tabela-comanda-admin">
                     <thead>
-                        <tr class="head-table">
+                        <tr class="head-table">/home/arthur/projeto_integrador/divide-ai-cop/assets /home/arthur/projeto_integrador/divide-ai-cop/css /home/arthur/projeto_integrador/divide-ai-cop/js /home/arthur/projeto_integrador/divide-ai-cop/admin.html /home/arthur/projeto_integrador/divide-ai-cop/index.html /home/arthur/projeto_integrador/divide-ai-cop/README.md /home/arthur/projeto_integrador/divide-ai-cop/split-test.html
                             <th>ITEM</th>
                             <th>QTD</th>
                             <th>UNITÁRIO</th>
@@ -405,6 +459,7 @@ function avancarPedido(idPedido, novoStatus) {
         idPedidoDetalhado = null;
     }
 
+    salvarDadosRestaurante();
     sincronizarTelasPedidos();
 }
 
@@ -416,6 +471,7 @@ function alternarItemPedido(idPedido, idItemPedido) {
     if (!item) return;
 
     item.done = !item.done;
+    salvarDadosRestaurante();
     sincronizarTelasPedidos();
 }
 
@@ -538,6 +594,7 @@ function confirmarPagamentoMesa() {
     pedidosMesa.forEach(p => p.status = 'pago');
     mesa.status = 'disponivel';
 
+    salvarDadosRestaurante();
     fecharModal('modal-pagamento-mesa');
     fecharModal('modal-detalhes-mesa');
     renderizarCardMesas();
@@ -567,7 +624,7 @@ function abrirModalCardapio(id) {
   
     idItemEmEdicao = id ? id : null;
     
-    const item = id ? itensCardapio.find(i => i.id === id) : null;
+    const item = id ? itensCardapio.find(i => String(i.id) === String(id)) : null;
 
     document.getElementById('titulo-modal-cardapio').innerText = item ? 'Editar Item' : 'Novo Item'
     document.getElementById('menu-nome').value = item ? item.nome : '';
@@ -591,7 +648,7 @@ function cadastrarItemMenu() {
 
 
     if (idItemEmEdicao) {
-        let item = itensCardapio.find(i => i.id === idItemEmEdicao)
+        let item = itensCardapio.find(i => String(i.id) === String(idItemEmEdicao))
         console.log(idItemEmEdicao, 'idItemEdicao')
         
         item.nome = nomeItem
@@ -618,6 +675,7 @@ function cadastrarItemMenu() {
     idItemEmEdicao = null;
 
     fecharModal('modal-cardapio')
+    salvarDadosRestaurante()
     renderizarCardapio()
 }
 
@@ -704,11 +762,13 @@ function renderizarCardapio() {
 
 function deletarItemCardapio(id) {
     const idItem = id ? id : null
-    const indexItem = idItem ? itensCardapio.findIndex(i => i.id === idItem) : null
+    const indexItem = idItem ? itensCardapio.findIndex(i => String(i.id) === String(idItem)) : null
        
+    if (indexItem === null || indexItem === -1) return;
 
     itensCardapio.splice(indexItem, 1);
 
+    salvarDadosRestaurante();
     renderizarCardapio();
 }
 
@@ -858,6 +918,7 @@ function excluirPedido(indexPedido) {
         mesa.status = 'disponivel';
     }
 
+    salvarDadosRestaurante();
     renderizarCardMesas();
     renderizarPedidosRecentes();
     renderizarKanbanPedidos();
@@ -1012,6 +1073,7 @@ function enviarPedido() {
         carroPedidos = {};
         addToOrderId = null;
         document.getElementById('order-table-sel').disabled = false;
+        salvarDadosRestaurante();
         fecharModal('modal-novo-pedido');
         renderizarCardMesas();
         renderizarPedidosRecentes();
@@ -1043,6 +1105,7 @@ function enviarPedido() {
 
     // Limpar carrinho e fechar modal
     carroPedidos = {};
+    salvarDadosRestaurante();
     fecharModal('modal-novo-pedido');
     renderizarCardMesas();
     renderizarPedidosRecentes();
@@ -1085,3 +1148,5 @@ function renderizarPagamentos() {
         </tr>
     `).join('');
 }
+
+document.addEventListener('DOMContentLoaded', iniciarLoginAdmin);

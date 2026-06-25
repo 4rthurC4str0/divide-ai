@@ -13,12 +13,12 @@
 
 <body>
 
-    <div class="login-page hidden">
+    <div class="login-page">
 
         <a href="index.html"><button class="btn-login-fixed btn btn-secondary btn-sm">Voltar para o cardápio</button></a>
         
         <div class="login-card">
-            <h2>Cadastre-se</h2>
+            <h2>Login do Admin</h2>
             <p>Hamburgueria IPhome</p>
 
             <div id="login-error"></div>
@@ -32,12 +32,11 @@
                 <input type="password" id="login-pass" placeholder="* * * * * *">
             </div>
 
-            <button class="btn btn-primary" onclick="entrarAdmin()"> Entrar </button>
-            <button class="btn btn-secondary">Cadastrar</button>
+            <button class="btn btn-primary" onclick="entrarAdmin()">Entrar</button>
         </div>
     </div>
 
-    <div id="admin-app" class=" admin-display ">
+    <div id="admin-app" class="admin-display hidden">
         <aside class="sidebar">
             <div class="sidebar-header">
                 <h2>Divide Aí</h2>

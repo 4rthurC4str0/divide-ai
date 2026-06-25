@@ -1,3 +1,11 @@
+let usuariosAdmin = [
+    {
+        usuario: 'admin',
+        senha: 'admin123',
+        nome: 'Administrador',
+    }
+];
+
 let todasMesas = [
     {
         id: 1,
@@ -141,3 +149,28 @@ let pedidos = [
 
 let todosPedidos = [];
 let pagamentos = [];
+
+function carregarDadosPersistidos() {
+    try {
+        const cardapioSalvo = localStorage.getItem('itensCardapio');
+        const mesasSalvas = localStorage.getItem('todasMesas');
+        const pedidosSalvos = localStorage.getItem('pedidos');
+        const pagamentosSalvos = localStorage.getItem('pagamentos');
+
+        if (cardapioSalvo) itensCardapio = JSON.parse(cardapioSalvo);
+        if (mesasSalvas) todasMesas = JSON.parse(mesasSalvas);
+        if (pedidosSalvos) pedidos = JSON.parse(pedidosSalvos);
+        if (pagamentosSalvos) pagamentos = JSON.parse(pagamentosSalvos);
+    } catch (error) {
+        console.warn('Não foi possível carregar os dados salvos.', error);
+    }
+}
+
+function salvarDadosRestaurante() {
+    localStorage.setItem('itensCardapio', JSON.stringify(itensCardapio));
+    localStorage.setItem('todasMesas', JSON.stringify(todasMesas));
+    localStorage.setItem('pedidos', JSON.stringify(pedidos));
+    localStorage.setItem('pagamentos', JSON.stringify(pagamentos));
+}
+
+carregarDadosPersistidos();

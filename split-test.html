@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Split Test</title>
+</head>
+<body>
+    <input id="login-cliente-nome">
+    <input id="login-cliente-telefone">
+    <input id="login-cliente-mesa">
+    <input id="split-nova-pessoa">
+
+    <div id="split-total-mesa"></div>
+    <div id="split-count"></div>
+    <div id="split-people-list"></div>
+    <div id="split-items-list"></div>
+    <div id="split-summary-list"></div>
+
+    <script src="js/dados.js"></script>
+    <script src="js/client.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            const resultado = document.createElement('pre');
+            resultado.id = 'resultado';
+            document.body.appendChild(resultado);
+
+            try {
+                clienteAtual = { id: 999, nome: 'Arthur', telefone: '1' };
+                mesaAtual = todasMesas.find(mesa => Number(mesa.id) === 1);
+                prepararDivisaoInicial();
+                document.getElementById('split-nova-pessoa').value = 'Maria';
+                adicionarPessoaDivisao();
+
+                const itensAgrupados = obterItensMesaAtual().map(item => ({
+                    nome: item.nome,
+                    quantidade: item.quantidade,
+                    precoTotal: item.precoTotal,
+                    pedidos: item.pedidoIds
+                }));
+
+                const pastel = obterItensMesaAtual().find(item => item.nome === 'Pastel');
+                atualizarQuantidadeAtribuida(pastel.key, splitPessoas[1].id, 1);
+                renderizarDivisaoConta();
+                const umParaMaria = document.getElementById('split-summary-list').innerText;
+
+                atualizarQuantidadeAtribuida(pastel.key, splitPessoas[0].id, 1);
+                renderizarDivisaoConta();
+                const umParaCada = document.getElementById('split-summary-list').innerText;
+
+                resultado.textContent = JSON.stringify({
+                    pessoas: splitPessoas.map(pessoa => pessoa.nome),
+                    itensAgrupados,
+                    umParaMaria,
+                    umParaCada
+                }, null, 2);
+            } catch (error) {
+                resultado.textContent = String(error && error.stack ? error.stack : error);
+            }
+        });
+    </script>
+</body>
+</html>
