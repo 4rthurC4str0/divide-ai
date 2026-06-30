@@ -640,17 +640,23 @@ function renderizarDivisaoConta() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    restaurarSessaoCliente();
+    carregarDadosBanco().finally(() => {
+        restaurarSessaoCliente();
 
-    ['login-cliente-nome', 'login-cliente-telefone', 'login-cliente-mesa'].forEach(id => {
-        const campo = document.getElementById(id);
-        campo.addEventListener('keydown', event => {
-            if (event.key === 'Enter') entrarCliente();
+        ['login-cliente-nome', 'login-cliente-telefone', 'login-cliente-mesa'].forEach(id => {
+            const campo = document.getElementById(id);
+            if (campo) {
+                campo.addEventListener('keydown', event => {
+                    if (event.key === 'Enter') entrarCliente();
+                });
+            }
         });
-    });
 
-    const campoNovaPessoa = document.getElementById('split-nova-pessoa');
-    campoNovaPessoa.addEventListener('keydown', event => {
-        if (event.key === 'Enter') adicionarPessoaDivisao();
+        const campoNovaPessoa = document.getElementById('split-nova-pessoa');
+        if (campoNovaPessoa) {
+            campoNovaPessoa.addEventListener('keydown', event => {
+                if (event.key === 'Enter') adicionarPessoaDivisao();
+            });
+        }
     });
 });

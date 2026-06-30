@@ -174,3 +174,31 @@ function salvarDadosRestaurante() {
 }
 
 carregarDadosPersistidos();
+
+function carregarDadosBanco() {
+    return fetch('obter_dados.php')
+        .then(response => {
+            if (!response.ok) throw new Error('Falha HTTP: ' + response.statusText);
+            return response.json();
+        })
+        .then(data => {
+            if (data.sucesso) {
+                if (data.mesas && data.mesas.length > 0) {
+                    todasMesas = data.mesas;
+                }
+                if (data.pedidos) {
+                    pedidos = data.pedidos;
+                    todosPedidos = [...pedidos];
+                }
+                console.log('Dados carregados do MySQL com sucesso!');
+                return true;
+            } else {
+                console.warn('Erro ao carregar dados do MySQL:', data.erro);
+                return false;
+            }
+        })
+        .catch(error => {
+            console.warn('Erro na conexão com obter_dados.php, usando localStorage como backup:', error);
+            return false;
+        });
+}

@@ -73,23 +73,25 @@ function sairAdmin() {
 }
 
 function iniciarLoginAdmin() {
-    const usuarioLogado = sessionStorage.getItem('adminLogado');
-    const adminExiste = typeof usuariosAdmin !== 'undefined' && usuariosAdmin.some(admin => admin.usuario === usuarioLogado);
+    carregarDadosBanco().finally(() => {
+        const usuarioLogado = sessionStorage.getItem('adminLogado');
+        const adminExiste = typeof usuariosAdmin !== 'undefined' && usuariosAdmin.some(admin => admin.usuario === usuarioLogado);
 
-    if (adminExiste) {
-        document.querySelector('.login-page').classList.add('hidden');
-        document.querySelector('.admin-display').classList.remove('hidden');
-        navigate('dashboard');
-    }
+        if (adminExiste) {
+            document.querySelector('.login-page').classList.add('hidden');
+            document.querySelector('.admin-display').classList.remove('hidden');
+            navigate('dashboard');
+        }
 
-    ['login-user', 'login-pass'].forEach(id => {
-        const campo = document.getElementById(id);
-        if (!campo) return;
+        ['login-user', 'login-pass'].forEach(id => {
+            const campo = document.getElementById(id);
+            if (!campo) return;
 
-        campo.addEventListener('keydown', event => {
-            if (event.key === 'Enter') {
-                entrarAdmin();
-            }
+            campo.addEventListener('keydown', event => {
+                if (event.key === 'Enter') {
+                    entrarAdmin();
+                }
+            });
         });
     });
 }
@@ -120,17 +122,25 @@ function cadastrarMesa() {
 
     if (!numeroMesa || !capacidadeMesa) {return}
 
-    if (idMesaEmEdicao ) {
+    let mesaData = {};
 
+    if (idMesaEmEdicao ) {
         let mesa = todasMesas.find(m => m.id === idMesaEmEdicao)
+        if (!mesa) return;
 
         mesa.numero = numeroMesa;
         mesa.capacidade = capacidadeMesa;
         mesa.status = statusMesa;
+        mesaData = {
+            id: mesa.id,
+            numero: mesa.numero,
+            capacidade: mesa.capacidade,
+            status: mesa.status
+        };
     } else {
-
+        const novoId = gerarProximoId(todasMesas);
         let novaMesa = {
-            id: gerarProximoId(todasMesas),
+            id: novoId,
             numero: numeroMesa,
             capacidade: capacidadeMesa,
             status: statusMesa,
@@ -139,8 +149,34 @@ function cadastrarMesa() {
             },
             pedidos: [],
         }
-        todasMesas.push(novaMesa)
+        todasMesas.push(novaMesa);
+        mesaData = {
+            id: novoId,
+            numero: numeroMesa,
+            capacidade: capacidadeMesa,
+            status: statusMesa
+        };
     }
+
+    // Sincronizar com o MySQL via PHP
+    fetch('salvar_mesa.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(mesaData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.sucesso) {
+            console.log('Mesa salva no MySQL com sucesso!', data);
+        } else {
+            console.warn('Erro ao salvar mesa no MySQL:', data.erro);
+        }
+    })
+    .catch(error => {
+        console.warn('Erro de conexão com salvar_mesa.php:', error);
+    });
 
     idMesaEmEdicao = null;
     fecharModal('modal-mesa')
@@ -153,6 +189,27 @@ function deletarMesa(id) {
     if (indexMesa === -1) return;
 
     todasMesas.splice(indexMesa, 1);
+
+    // Sincronizar com o MySQL via PHP
+    fetch('deletar_mesa.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: id })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.sucesso) {
+            console.log('Mesa excluída do MySQL com sucesso!', data);
+        } else {
+            console.warn('Erro ao excluir mesa no MySQL:', data.erro);
+        }
+    })
+    .catch(error => {
+        console.warn('Erro de conexão com deletar_mesa.php:', error);
+    });
+
     salvarDadosRestaurante();
     renderizarCardMesas();
 }
@@ -1054,9 +1111,11 @@ function enviarPedido() {
     if (dadosPedido.items.length === 0) {
         alert("Adicione pelo menos um item válido ao pedido!");
         return;
-    }
+    }  
+    let pedidoSalvo;
+    let isEdit = (addToOrderId !== null);
 
-    if (addToOrderId !== null) {
+    if (isEdit) {
         const pedido = pedidos[addToOrderId];
         if (!pedido) return;
 
@@ -1066,7 +1125,57 @@ function enviarPedido() {
         pedido.couvertArtistico = dadosPedido.couvertArtistico;
         pedido.total = dadosPedido.total;
         pedido.notes = notes;
+        
+        pedidoSalvo = pedido;
+    } else {
+        pedidoSalvo = {
+            id: Date.now(),
+            idMesa: idMesa,
+            numeroMesa: mesa ? mesa.numero : '?',
+            items: dadosPedido.items,
+            subtotal: dadosPedido.subtotal,
+            porcentagemServico: dadosPedido.porcentagemServico,
+            couvertArtistico: dadosPedido.couvertArtistico,
+            total: dadosPedido.total,
+            criado: new Date(),
+            status: 'pending',
+            notes: notes
+        };
+    }
 
+    // Enviar dados para o PHP cadastrar/atualizar no MySQL
+    fetch('cadastrar_pedido.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(pedidoSalvo)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Falha HTTP: ' + response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.sucesso) {
+            console.log('Pedido salvo no MySQL com sucesso!', data);
+        } else {
+            console.warn('Erro ao salvar no banco de dados MySQL:', data.erro);
+            alert('Aviso: O pedido foi processado localmente, mas não pôde ser salvo no banco de dados MySQL:\n' + data.erro);
+        }
+    })
+    .catch(error => {
+        console.warn('Erro na requisição PHP/MySQL (pode ser executando via file://):', error);
+    })
+    .finally(() => {
+        if (!isEdit) {
+            pedidos.push(pedidoSalvo);
+            todosPedidos.push(pedidoSalvo);
+            if (mesa) mesa.status = 'ocupada';
+        }
+
+        // Limpar carrinho e fechar modal
         carroPedidos = {};
         addToOrderId = null;
         document.getElementById('order-table-sel').disabled = false;
@@ -1075,42 +1184,10 @@ function enviarPedido() {
         renderizarCardMesas();
         renderizarPedidosRecentes();
         renderizarKanbanPedidos();
-        if (idMesaSelecionada === pedido.idMesa) {
+        if (idMesaSelecionada === idMesa) {
             renderizarDetalhesMesa();
         }
-        return;
-    }
-
-    const novoPedido = {
-        id: Date.now(),
-        idMesa: idMesa,
-        numeroMesa: mesa ? mesa.numero : '?',
-        items: dadosPedido.items,
-        subtotal: dadosPedido.subtotal,
-        porcentagemServico: dadosPedido.porcentagemServico,
-        couvertArtistico: dadosPedido.couvertArtistico,
-        total: dadosPedido.total,
-        criado: new Date(),
-        status: 'pending',
-        notes: notes
-    };
-
-    pedidos.push(novoPedido);
-    todosPedidos.push(novoPedido);
-
-    mesa.status = 'ocupada';
-
-    // Limpar carrinho e fechar modal
-    carroPedidos = {};
-    salvarDadosRestaurante();
-    fecharModal('modal-novo-pedido');
-    renderizarCardMesas();
-    renderizarPedidosRecentes();
-    renderizarKanbanPedidos();
-    if (idMesaSelecionada === idMesa) {
-        renderizarDetalhesMesa();
-    }
-    
+    });
 }
 
 function renderizarPagamentos() {

@@ -1,0 +1,2 @@
+# Arquivos locais e configurações que não devem ser versionados no Git
+.env
